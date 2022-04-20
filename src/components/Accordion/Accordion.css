@@ -1,0 +1,38 @@
+.accordion .MuiAccordionSummary-content {
+  display: block;
+  margin: 15px 0;
+}
+.accordion .section-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+.accordion .section-title-caption {
+  font-size: 14px;
+  color: #333;
+}
+.accordion .MuiAccordionSummary-root {
+  background-color: #f7f9fa;
+}
+.accordion .MuiAccordionDetails-root {
+  padding: 0px;
+}
+.accordion .lecture-name {
+  font-size: 15px;
+}
+.accordion .file-duration-container {
+  font-size: 13px;
+}
+.accordion .icon {
+  font-size: 18px;
+  color: #444;
+}
+.accordion .single-content {
+  padding-bottom: 10px;
+}
+.accordion .single-content:hover {
+  background-color: #d1d7dc;
+}
+.MuiGrid-root.single-content {
+  width: 100%;
+  margin: 0px;
+}
