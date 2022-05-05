@@ -3,6 +3,10 @@
   height: 500px;
   background-color: #0a0909;
 }
+.view-course-main-container {
+  width: 100%;
+  height: 500px;
+}
 .course-content-title {
   padding: 15px;
   font-weight: 700;
@@ -16,4 +20,10 @@
   position: fixed;
   right: 0;
   width: 100%;
+}
+.view-course-grid {
+  height: 90vh;
+}
+.view-course-left-container {
+  background-color: white;
 }

@@ -29,6 +29,9 @@
 .accordion .single-content {
   padding-bottom: 10px;
 }
+.accordion .selected {
+  background: linear-gradient(91.02deg, rgba(255, 210, 90, 0.43) -5.63%, rgba(255, 158, 67, 0.43) 102.29%);
+}
 .accordion .single-content:hover {
   background-color: #d1d7dc;
 }

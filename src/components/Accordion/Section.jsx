@@ -1,0 +1,35 @@
+import * as React from "react";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import "./Accordion.css";
+import { Checkbox, Grid } from "@mui/material";
+import { PlayCircle } from "@mui/icons-material";
+import Unit from "./Unit";
+import { useSelector } from "react-redux";
+
+export default function Section(props) {
+  const selectedUnit = useSelector((state) => state.course.selectedUnit);
+
+  return (
+    <div className="accordion">
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+          <div className="section-title">
+            Section {props.sectionNum}: {props.title}
+          </div>
+          <div className="section-title-caption">
+            {props.viewedUnits} / {props.totalUnits} | {props.sectionDuration}
+          </div>
+        </AccordionSummary>
+        <AccordionDetails>
+          {props.units.map((unit, index) => {
+            return <Unit sectionNum={props.sectionNum} unitNum={index + 1} title={unit.name} duration={6} unit={unit} setMain={props.setMain} selectedUnit={selectedUnit} />;
+          })}
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  );
+}
