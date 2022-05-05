@@ -1,17 +1,15 @@
 {
   "authSelections": "userPoolOnly",
-  "resourceName": "elearningadmind999a8b9",
+  "resourceName": "elearningadmin3948ba55",
   "serviceType": "imported",
   "region": "ap-south-1",
-  "aliasAttributes": [
+  "usernameAttributes": [
     "email"
   ],
-  "authProvidersUserPool": [],
   "requiredAttributes": [
     "given_name",
     "family_name",
-    "email",
-    "phone_number"
+    "email"
   ],
   "passwordPolicyMinLength": 8,
   "passwordPolicyCharacters": [
