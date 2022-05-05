@@ -10,6 +10,7 @@ importing dependencies and CSS file(s) required for UI customization
 */
 import React from 'react';
 import 'shaka-player/dist/controls.css';
+import { generateLicenseToken } from '../../service/videoPlayer.service';
 const shaka = require('shaka-player/dist/shaka-player.ui.js');
 
 //Creating class component
@@ -40,19 +41,34 @@ class VideoPlayer extends React.PureComponent{
 	  console.error('Error code', error.code, 'object', error);
 	}
 
-	componentDidMount(){
+	async componentDidMount(){
 
 		//Link to MPEG-DASH video
-		var manifestUri = 'https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd';
+		var manifestUri = 'https://spark-courses.s3.ap-south-1.amazonaws.com/62272fbfc8ea4d8b75b76aa2/resources/output/manifest.mpd';
 
 		//Getting reference to video and video container on DOM
 		const video = this.videoComponent.current;
 		const videoContainer = this.videoContainer.current;
-
+		const protection =  {
+			drm :{
+				servers: {
+					"com.widevine.alpha": "https://drm-widevine-licensing.axprod.net/AcquireLicense"
+				}
+			}
+		}
+		const token= await generateLicenseToken("b4727cf3-00ef-402f-9765-33416bc9ee6c");
 		//Initialize shaka player
 		var player = new shaka.Player(video);
+		player.configure(protection);
 
-		//Setting UI configuration JSON object
+		player.getNetworkingEngine().registerRequestFilter(function (type, request) {
+			if (type === shaka.net.NetworkingEngine.RequestType.LICENSE) {
+				request.headers['X-AxDRM-Message'] = token.token;
+			}
+		});
+
+		//Setting UI configuration JSON objectyuk
+		
 		const uiConfig = {};
 
 		//Configuring elements to be displayed on video player control panel
@@ -88,7 +104,7 @@ class VideoPlayer extends React.PureComponent{
 				<video 
 					className="video_preview"
 					ref={this.videoComponent}
-					poster="//shaka-player-demo.appspot.com/assets/poster.jpg"
+					
 				/>
 			</div>
 		);
