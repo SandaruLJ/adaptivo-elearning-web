@@ -21,3 +21,9 @@
   right: 0;
   width: 100%;
 }
+.view-course-grid {
+  height: 90vh;
+}
+.view-course-left-container {
+  background-color: white;
+}

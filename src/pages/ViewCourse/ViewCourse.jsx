@@ -43,8 +43,8 @@ const ViewCourse = () => {
 
   return (
     <div>
-      <Grid container>
-        <Grid item xs={9}>
+      <Grid container className="view-course-grid">
+        <Grid item xs={9} className="view-course-left-container">
           <div className="view-course-main-container">{main.type == "video" && <video className="video_preview" controls src={main.body} />}</div>
           {data && <CustomTab tabs={tabs} />}
         </Grid>
