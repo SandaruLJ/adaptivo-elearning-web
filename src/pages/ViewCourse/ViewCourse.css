@@ -17,3 +17,9 @@
   right: 0;
   width: 100%;
 }
+.quiz_container{
+  width: 100%;
+  height: 300px;
+  background-color: white;
+  padding: 25px 50px 200px 250px;
+}
