@@ -7,11 +7,27 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import "./Accordion.css";
 import { Checkbox, Grid } from "@mui/material";
 import { PlayCircle } from "@mui/icons-material";
+import Section from "./Section";
 
-export default function CustomAccordion() {
+export default function CustomAccordion(props) {
+  const [selectedUnit, setSelectedUnit] = React.useState({ section: 0, unit: 0 });
   return (
     <div className="accordion">
-      <Accordion>
+      {props.curriculum.map((section, index) => {
+        return (
+          <Section
+            title={section.name}
+            sectionNum={index + 1}
+            viewedUnits={3}
+            totalUnits={section.units.length}
+            sectionDuration={"6 min"}
+            units={section.units}
+            setMain={props.setMain}
+            setSelectedUnit={setSelectedUnit}
+          />
+        );
+      })}
+      {/* <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
           <div className="section-title">Section 1: Introduction</div>
 
@@ -35,7 +51,7 @@ export default function CustomAccordion() {
             </Grid>
           </Grid>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
     </div>
   );
 }
