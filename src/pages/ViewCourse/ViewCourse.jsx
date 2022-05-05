@@ -5,6 +5,8 @@ import CustomAccordion from "../../components/Accordion/Accordion";
 import CustomTab from "../../components/Tab/CustomTab";
 import { useFetch } from "../../components/useFetch";
 import { getCourseById } from "../../service/course.service";
+import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
+import { generateLicenseToken } from "../../service/videoPlayer.service";
 
 const tabs = [
   {
@@ -28,7 +30,7 @@ const tabs = [
 const ViewCourse = () => {
   const [data, setData] = useState();
   const [main, setMain] = useState({
-    type: "",
+    type: "video",
     body: "",
   });
   const getData = async () => {
@@ -45,7 +47,7 @@ const ViewCourse = () => {
     <div>
       <Grid container className="view-course-grid">
         <Grid item xs={9} className="view-course-left-container">
-          <div className="view-course-main-container">{main.type == "video" && <video className="video_preview" controls src={main.body} />}</div>
+          <div className="view-course-main-container">{main.type == "video" && <VideoPlayer src={main.body} />}</div>
           {data && <CustomTab tabs={tabs} />}
         </Grid>
         <Grid item xs={3} className="course-content">
