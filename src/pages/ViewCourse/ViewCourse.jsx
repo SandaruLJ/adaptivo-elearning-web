@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import "./ViewCourse.css";
 import CustomAccordion from "../../components/Accordion/Accordion";
 import CustomTab from "../../components/Tab/CustomTab";
-import { RadioGroup } from '@mui/material';
-import { FormControl } from '@mui/material';
-import { FormLabel } from '@mui/material';
-import { FormControlLabel } from '@mui/material';
-import { Radio } from '@mui/material';
+import { useFetch } from "../../components/useFetch";
+import { getCourseById } from "../../service/course.service";
+import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
+import { generateLicenseToken } from "../../service/videoPlayer.service";
 
 const tabs = [
   {
@@ -27,34 +26,33 @@ const tabs = [
     body: <div>Review</div>,
   },
 ];
+
 const ViewCourse = () => {
+  const [data, setData] = useState();
+  const [main, setMain] = useState({
+    type: "video",
+    body: "",
+  });
+  const getData = async () => {
+    //Fetches the data from the db
+    const response = await getCourseById("6269d0c1fac8add4e331dbb7");
+    console.log(response);
+    setData(response);
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div>
-      <Grid container>
-        <Grid item xs={9}>
-          {/* <video className="video_preview" controls src="" /> */}
-          <div className="quiz_container">
-         <FormControl>
-                <FormLabel id="demo-radio-buttons-group-label">How familiar are you with Force?</FormLabel>
-                <br></br>
-                <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    // defaultValue="female"
-                    name="radio-buttons-group"
-                >
-                    <FormControlLabel value="a" control={<Radio />} label="I have never heard of it" />
-                    <FormControlLabel value="b" control={<Radio />} label="I have heard of it, but don't know what is it" />
-                    <FormControlLabel value="c" control={<Radio />} label="I have some idea of it, but it's not very clear" />
-                    <FormControlLabel value="d" control={<Radio />} label="I know what is it and could explain what it's used for" />
-                    <FormControlLabel value="e" control={<Radio />} label="I know what it is and when to use it, and I could use it to analyze data" />
-                </RadioGroup>
-                </FormControl>
-         </div>
-          <CustomTab tabs={tabs} />
+      <Grid container className="view-course-grid">
+        <Grid item xs={9} className="view-course-left-container">
+          <div className="view-course-main-container">{main.type == "video" && <VideoPlayer src={main.body} />}</div>
+          {data && <CustomTab tabs={tabs} />}
         </Grid>
         <Grid item xs={3} className="course-content">
           <div className="course-content-title">Course Content</div>
-          <CustomAccordion />
+          {data && <CustomAccordion curriculum={data.curriculum} setMain={setMain} />}
         </Grid>
       </Grid>
     </div>

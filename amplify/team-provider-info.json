@@ -13,11 +13,11 @@
     },
     "categories": {
       "auth": {
-        "elearningadmind999a8b9": {
-          "userPoolId": "ap-south-1_HwrCqDg1Q",
-          "userPoolName": "Admins",
-          "webClientId": "ajhgqgj46dn7b228be0mt2b56",
-          "nativeClientId": "ajhgqgj46dn7b228be0mt2b56"
+        "elearningadmin3948ba55": {
+          "userPoolId": "ap-south-1_RURl3ClP1",
+          "userPoolName": "Students",
+          "webClientId": "18pjkmvrdljnh50vds3hfm6k7l",
+          "nativeClientId": "18pjkmvrdljnh50vds3hfm6k7l"
         }
       }
     }
