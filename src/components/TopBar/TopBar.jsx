@@ -1,11 +1,12 @@
 import React, { Fragment, useState } from "react";
 import "./TopBar.css";
 import { Avatar, Divider, Grid, IconButton, ListItemIcon, Menu, MenuItem } from "@mui/material";
-import { ArrowDropDown, Fullscreen, FullscreenExit, Logout,  } from "@mui/icons-material";
+import { ArrowDropDown, Fullscreen, FullscreenExit, Logout } from "@mui/icons-material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { Link } from "react-router-dom";
 import CircularProgressWithIcon from "../CircularProgresswithIcon/CircularProgresswithIcon";
-import store from '../../store';
+import store from "../../store";
+import { useSelector } from "react-redux";
 
 //Admin TopBar
 const TopBar = (props) => {
@@ -13,6 +14,8 @@ const TopBar = (props) => {
   const userInitials = `${state.auth.user.attributes.given_name[0]}${state.auth.user.attributes.family_name[0]}`;
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const courseName = useSelector((state) => state.course.courseName);
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,7 +41,7 @@ const TopBar = (props) => {
               </Grid>
               <Grid item>
                 <div>
-                  <h3>Machine Learning BootCamp</h3>
+                  <h3>{courseName}</h3>
                 </div>
               </Grid>
             </Grid>
@@ -88,31 +91,31 @@ const TopBar = (props) => {
           PaperProps={{
             elevation: 0,
             sx: {
-              overflow: 'visible',
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
               mt: 1.5,
-              '& .MuiAvatar-root': {
+              "& .MuiAvatar-root": {
                 width: 32,
                 height: 32,
                 ml: -0.5,
                 mr: 1,
               },
-              '&:before': {
+              "&:before": {
                 content: '""',
-                display: 'block',
-                position: 'absolute',
+                display: "block",
+                position: "absolute",
                 top: 0,
                 right: 14,
                 width: 10,
                 height: 10,
-                bgcolor: 'background.paper',
-                transform: 'translateY(-50%) rotate(45deg)',
+                bgcolor: "background.paper",
+                transform: "translateY(-50%) rotate(45deg)",
                 zIndex: 0,
               },
             },
           }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
           <MenuItem>
             <Avatar /> My Profile

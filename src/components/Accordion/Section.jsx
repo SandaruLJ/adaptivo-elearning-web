@@ -13,9 +13,19 @@ import { useSelector } from "react-redux";
 export default function Section(props) {
   const selectedUnit = useSelector((state) => state.course.selectedUnit);
 
+  const [expanded, setExpanded] = React.useState(selectedUnit.section);
+
+  React.useEffect(() => {
+    setExpanded(selectedUnit.section);
+  }, [selectedUnit.section]);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
   return (
     <div className="accordion">
-      <Accordion>
+      {/* defaultExpanded={selectedUnit.section == props.sectionNum - 1} */}
+      <Accordion expanded={expanded === props.sectionNum - 1} onChange={handleChange(props.sectionNum - 1)}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
           <div className="section-title">
             Section {props.sectionNum}: {props.title}

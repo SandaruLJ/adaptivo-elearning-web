@@ -87,6 +87,12 @@ caption {
 .text-justify {
   text-align: justify;
 }
+.w-600{
+  font-weight: 600;
+}
+.w-700{
+  font-weight: 700;
+}
 input[type="file"] {
   display: none;
 }
