@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CourseOverlay from "./CourseOverlay";
 import Overview from "./Overview";
 import { useTracking } from "react-tracking";
+import QuizDisplay from "./QuizDisplay";
 
 const ViewCourse = () => {
   const [data, setData] = useState();
@@ -68,6 +69,7 @@ const ViewCourse = () => {
               {overlay && <CourseOverlay setOverlay={setOverlay} />}
               {type == "video" && <VideoPlayer src={body} setOverlay={setOverlay} />}
               {type == "note" && <NoteDisplay note={body} setOverlay={setOverlay} />}
+              {type == "quiz" && <QuizDisplay note={body} setOverlay={setOverlay} />}
             </div>
             {data && <CustomTab tabs={tabs} />}
           </Grid>

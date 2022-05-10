@@ -34,6 +34,9 @@
 .note-container {
   padding: 15px;
 }
+.quiz-container {
+  padding: 15px;
+}
 .view-course-overlay {
   background: rgb(27 27 27 / 97%);
   position: absolute;
