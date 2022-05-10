@@ -1,6 +1,8 @@
 import { AppBar, Box, Tab, Tabs, Typography, useTheme } from "@mui/material";
 import React from "react";
 import SwipeableViews from "react-swipeable-views";
+import { useTracking } from "react-tracking";
+import moment from "moment";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -26,9 +28,17 @@ function a11yProps(index) {
 const CustomTab = (props) => {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const { trackEvent } = useTracking();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+
+    trackEvent({
+      action: "tabChange",
+      tabName: props.tabs[newValue].label,
+      time: moment().format("DD-MM-YYYY hh:mm:ss"),
+    });
+    console.log(newValue);
   };
 
   const handleChangeIndex = (index) => {
@@ -37,7 +47,7 @@ const CustomTab = (props) => {
 
   return (
     <Box sx={{ bgcolor: "background.paper", width: "100%" }}>
-      <AppBar position="static" color="secondary" >
+      <AppBar position="static" color="secondary">
         <Tabs value={value} onChange={handleChange} indicatorColor="primary">
           {props.tabs.map((tab, i) => {
             return <Tab icon={tab.icon} iconPosition="start" label={tab.label} {...a11yProps(i)} />;
