@@ -35,9 +35,10 @@ const TopBar = (props) => {
           <Grid item>
             <Grid container spacing="30" alignItems="center">
               <Grid item>
-                <Link to="/" className="logo">
-                  Elearning
-                </Link>
+                {/* <Link to="/" className="logo">
+                  adaptivo
+                </Link> */}
+                <img src="images/adaptivo.png" className="logo-img" />
               </Grid>
               <Grid item>
                 <div>

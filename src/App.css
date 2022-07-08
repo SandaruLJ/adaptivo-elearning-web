@@ -2,8 +2,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
+  /* font-family: "Poppins", sans-serif; */
+  font-weight: 500;
+  font-family: "Urbanist", sans-serif;
 }
 
 :root {
@@ -13,7 +14,7 @@
   --gradient: linear-gradient(177.02deg, #ff9c3f 0%, #ffd25a 72.73%);
 }
 .main {
-  padding-top: 70px;
+  /* padding-top: 70px; */
   /* padding-left: 250px; */
   /* padding-bottom: 24px; */
 }
@@ -87,10 +88,10 @@ caption {
 .text-justify {
   text-align: justify;
 }
-.w-600{
+.w-600 {
   font-weight: 600;
 }
-.w-700{
+.w-700 {
   font-weight: 700;
 }
 input[type="file"] {

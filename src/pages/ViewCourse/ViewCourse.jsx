@@ -14,8 +14,9 @@ import CourseOverlay from "./CourseOverlay";
 import Overview from "./Overview";
 import { useTracking } from "react-tracking";
 import QuizDisplay from "./QuizDisplay";
+import TopBar from "../../components/TopBar/TopBar";
 
-const ViewCourse = () => {
+const ViewCourse = (props) => {
   const [data, setData] = useState();
   const [overlay, setOverlay] = useState();
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const ViewCourse = () => {
 
   const getData = async () => {
     //Fetches the data from the db
-    const response = await getCourseById("6269d0c1fac8add4e331dbb7");
+    const response = await getCourseById("628d437fd2ead54fca9b1b07");
     console.log(response);
     setData(response);
     dispatch(courseActions.setCourseName(response.title));
@@ -63,6 +64,7 @@ const ViewCourse = () => {
   return (
     <Track>
       <div>
+        <TopBar signOut={props.signOut} />
         <Grid container className="view-course-grid">
           <Grid item xs={9} className="view-course-left-container">
             <div className="view-course-main-container">
