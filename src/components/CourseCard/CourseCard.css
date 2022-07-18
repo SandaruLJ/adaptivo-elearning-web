@@ -3,6 +3,11 @@
   /* height: 400px; */
   border-radius: 15px;
   border: 2px solid #f2f2f2;
+  cursor: pointer;
+}
+.course-card:hover {
+  transform: scale(1.05);
+  transition: 500ms ease-in;
 }
 .course-card .course-thumbnail img {
   width: 300px;

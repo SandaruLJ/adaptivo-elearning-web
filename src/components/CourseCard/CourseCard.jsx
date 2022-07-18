@@ -1,11 +1,13 @@
 import { Laptop, Star, SupervisedUserCircle } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./CourseCard.css";
 
 const CourseCard = (props) => {
+  const navigate = useNavigate();
   return (
-    <div className="course-card">
+    <div className="course-card" onClick={() => navigate("/course")}>
       <div className="course-thumbnail">
         <img src={props.image} />
       </div>

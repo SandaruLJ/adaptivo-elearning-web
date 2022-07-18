@@ -16,6 +16,8 @@ const Main = () => {
     <Track>
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
+        <Route exact path="/course" element={<ViewCourse />}></Route>
+
         {/* <Route exact path="/add/courses" element={<AddCourse />}></Route>
       <Route exact path="/courses" element={<AllCourse />}></Route>
       <Route exact path="/qna" element={<AddQuestion />}></Route>
