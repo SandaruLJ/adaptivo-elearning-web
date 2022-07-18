@@ -15,6 +15,7 @@ import Overview from "./Overview";
 import { useTracking } from "react-tracking";
 import QuizDisplay from "./QuizDisplay";
 import TopBar from "../../components/TopBar/TopBar";
+import PreferenceDialog from "../../components/Dialog/PreferenceDialog";
 
 const ViewCourse = (props) => {
   const [data, setData] = useState();
@@ -81,6 +82,7 @@ const ViewCourse = (props) => {
           </Grid>
         </Grid>
       </div>
+      <PreferenceDialog />
     </Track>
   );
 };
