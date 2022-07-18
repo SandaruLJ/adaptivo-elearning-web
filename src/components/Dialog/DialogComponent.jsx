@@ -20,6 +20,9 @@ const DialogComponent = React.forwardRef((props, ref) => {
     handleClickOpen() {
       handleClickOpen();
     },
+    handleClose() {
+      handleClose();
+    },
   }));
 
   const handleClickOpen = () => {
@@ -31,31 +34,38 @@ const DialogComponent = React.forwardRef((props, ref) => {
   };
 
   const handleOkay = () => {
-    setOpen(false);
+    // setOpen(false);
     props.handleOkay && props.handleOkay();
   };
+  let button;
+
+  if (props.borderedButton) {
+    button = (
+      <DialogActions>
+        <CustomButton onclick={handleOkay} color="orange fit-content" name={props.okayText ? props.okayText : "Ok"}></CustomButton>
+
+        <CustomButton onclick={handleClose} color="grey fit-content" name={props.cancelText ? props.cancelText : "Cancel"}></CustomButton>
+      </DialogActions>
+    );
+  } else {
+    button = (
+      <DialogActions>
+        <Button onClick={handleClose} color="tertiary">
+          {props.cancelText ? props.cancelText : "Cancel"}
+        </Button>
+        <Button onClick={handleOkay} color="tertiary">
+          {props.okayText ? props.okayText : "Ok"}
+        </Button>
+      </DialogActions>
+    );
+  }
   return (
     <div>
       <Dialog open={open} onClose={handleClose} className="dialog">
         <DialogTitle>{props.title}</DialogTitle>
         <DialogContent>{props.body}</DialogContent>
 
-        {props.borderedButton ? (
-          <DialogActions>
-            <CustomButton onclick={handleOkay} color="orange fit-content" name={props.okayText ? props.okayText : "Ok"}></CustomButton>
-
-            <CustomButton onclick={handleClose} color="grey fit-content" name={props.cancelText ? props.cancelText : "Cancel"}></CustomButton>
-          </DialogActions>
-        ) : (
-          <DialogActions>
-            <Button onClick={handleClose} color="tertiary">
-              {props.cancelText ? props.cancelText : "Cancel"}
-            </Button>
-            <Button onClick={handleOkay} color="tertiary">
-              {props.okayText ? props.okayText : "Ok"}
-            </Button>
-          </DialogActions>
-        )}
+        {props.displayActionButtons && button}
       </Dialog>
     </div>
   );

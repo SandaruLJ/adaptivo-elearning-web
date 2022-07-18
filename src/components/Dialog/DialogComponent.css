@@ -11,3 +11,8 @@
 .dialog .MuiDialogActions-root {
   padding-right: 20px;
 }
+.preference-question {
+  font-size: 18px;
+  font-weight: 700;
+  padding-bottom: 15px;
+}
