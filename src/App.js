@@ -76,10 +76,9 @@ export const App = () => {
         return (
           <ThemeProvider theme={theme}>
             <Router>
-              <TopBar signOut={signOut} />
               <div className="main">
                 <Track>
-                  <Main />
+                  <Main signOut={signOut} />
                 </Track>
               </div>
             </Router>

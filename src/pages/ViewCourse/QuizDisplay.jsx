@@ -1,6 +1,7 @@
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
+import { FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from "@mui/material";
 import { Interweave } from "interweave";
 import React, { useEffect, useState } from "react";
+import CustomButton from "../../components/Button/CustomButton";
 
 const QuizDisplay = (props) => {
   return (
@@ -19,6 +20,16 @@ const QuizDisplay = (props) => {
           <FormControlLabel value="" control={<Radio />} label="I know what it is and when to use it, and I could use it to analyze data" />
         </RadioGroup>
       </FormControl>
+      <div className="quiz-action-btns">
+        <Grid container justifyContent="space-between" className="mt-2">
+          <Grid item>
+            <CustomButton name="Previous" color="grey" type="cancel" />
+          </Grid>
+          <Grid item>
+            <CustomButton name="Next" color="orange" type="submit" />
+          </Grid>
+        </Grid>
+      </div>
     </div>
   );
 };
