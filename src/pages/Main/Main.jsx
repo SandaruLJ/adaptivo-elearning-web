@@ -37,7 +37,8 @@ const Main = () => {
         <Route exact path="/categories/add" element={<AddCategory />}></Route>
         <Route exact path="/categories" element={<AllCategory />}></Route> */}
 
-          <Route path="/login" element={<CustomAuthenticator />} />
+          <Route path="/login" element={<CustomAuthenticator initialState="signIn" />} />
+          <Route path="/signup" element={<CustomAuthenticator initialState="signUp" />} />
         </Routes>
       </Track>
     </Authenticator.Provider>

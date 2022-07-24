@@ -5,7 +5,7 @@ import './CustomAuthenticator.css';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
-export default function CustomAuthenticator() {
+export default function CustomAuthenticator({ initialState }) {
   const { route } = useAuthenticator((context) => [context.route]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -51,6 +51,7 @@ export default function CustomAuthenticator() {
   
   return (
     <Authenticator
+      initialState={initialState ? initialState : 'signIn'}
       className="auth"
       variation="modal"
       components={customAuthComponents}
