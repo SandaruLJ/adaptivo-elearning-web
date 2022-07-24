@@ -1,0 +1,42 @@
+.quiz_container {
+    height:740px;
+    border-style: double;
+    border-width: 8px;
+    padding-left: 200px;
+    background-color:#F1F1F1;
+}
+
+.button-next{
+    position: absolute;
+    /* top:50%; */
+    right: 0px;
+    left: 500px;
+    top:550px;
+    /* width: 120px; */
+    /* transform: translateY(-50%); */
+  }
+
+.button-cancel{
+    position:absolute;
+    left:0px;
+    right:500px;
+    top: 550px;
+    align-content: left;
+}
+
+
+.MuiFormControlLabel-root{
+    border-style: solid;
+    border-width: 1px;
+    border-radius:20px;
+    /* box-shadow: inset 0px 0px 0px 1px; */
+    padding: 15px;
+    /* border-spacing: 15px 5rem; */
+    /* border-spacing: 5px 1rem; */
+    margin-top: 15px;
+    border-color:#fe825c;
+    
+}
+
+
+

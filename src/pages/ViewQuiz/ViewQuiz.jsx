@@ -37,10 +37,10 @@ const ViewQuiz = () => {
                     name="radio-buttons-group"
                 >
                     <FormControlLabel value="neverHeard" control={<Radio />} label="I have never heard of it" />
-                    <FormControlLabel value="" control={<Radio />} label="I have heard of it, but don't know what is it" />
-                    <FormControlLabel value="" control={<Radio />} label="I have some idea of it, but it's not very clear" />
-                    <FormControlLabel value="" control={<Radio />} label="I know what is it and could explain what it's used for" />
-                    <FormControlLabel value="" control={<Radio />} label="I know what it is and when to use it, and I could use it to analyze data" />
+                    <FormControlLabel value="a" control={<Radio />} label="I have heard of it, but don't know what is it" />
+                    <FormControlLabel value="b" control={<Radio />} label="I have some idea of it, but it's not very clear" />
+                    <FormControlLabel value="c" control={<Radio />} label="I know what is it and could explain what it's used for" />
+                    <FormControlLabel value="d" control={<Radio />} label="I know what it is and when to use it, and I could use it to analyze data" />
                 </RadioGroup>
                 </FormControl>
          </div>
