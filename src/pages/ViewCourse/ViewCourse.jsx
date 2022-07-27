@@ -16,6 +16,8 @@ import { useTracking } from "react-tracking";
 import QuizDisplay from "./QuizDisplay";
 import TopBar from "../../components/TopBar/TopBar";
 import PreferenceDialog from "../../components/Dialog/PreferenceDialog";
+import moment from "moment";
+import CourseOutline from "./CourseOutline";
 
 const ViewCourse = (props) => {
   const [data, setData] = useState();
@@ -37,6 +39,10 @@ const ViewCourse = (props) => {
   };
   useEffect(() => {
     getData();
+    trackEvent({
+      action: "page_visit_viewCourse",
+      time: moment().format("DD-MM-YYYY hh:mm:ss"),
+    });
   }, []);
 
   // const setMain = (type, body) => {
@@ -59,6 +65,10 @@ const ViewCourse = (props) => {
     {
       label: "Review",
       body: <div>Review</div>,
+    },
+    {
+      label: "Outline",
+      body: <CourseOutline course={data} />,
     },
   ];
 

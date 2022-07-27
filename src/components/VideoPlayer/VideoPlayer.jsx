@@ -30,6 +30,10 @@ const VideoPlayer = (props) => {
 
   const onEnded = (e) => {
     props.setOverlay(true);
+    trackEvent({
+      action: "end_video",
+      time: moment().format("DD-MM-YYYY hh:mm:ss"),
+    });
   };
   const onPlay = (e) => {
     trackEvent({
@@ -40,6 +44,18 @@ const VideoPlayer = (props) => {
   const onPause = (e) => {
     trackEvent({
       action: "pause_video",
+      time: moment().format("DD-MM-YYYY hh:mm:ss"),
+    });
+  };
+  const onSeek = (e) => {
+    trackEvent({
+      action: "seek_video",
+      time: moment().format("DD-MM-YYYY hh:mm:ss"),
+    });
+  };
+  const onRateChange = (e) => {
+    trackEvent({
+      action: "speed_change",
       time: moment().format("DD-MM-YYYY hh:mm:ss"),
     });
   };
@@ -65,7 +81,14 @@ const VideoPlayer = (props) => {
     video.addEventListener("ended", onEnded);
     video.addEventListener("play", onPlay);
     video.addEventListener("pause", onPause);
+    video.addEventListener("seeking", onSeek);
+    video.addEventListener("ratechange", onRateChange);
     document.addEventListener("fullscreenchange", onFullScreen);
+
+    trackEvent({
+      action: "view_video",
+      time: moment().format("DD-MM-YYYY hh:mm:ss"),
+    });
 
     const protection = {
       drm: {

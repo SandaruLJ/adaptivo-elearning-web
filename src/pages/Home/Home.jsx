@@ -1,5 +1,7 @@
 import { Grid } from "@mui/material";
-import React from "react";
+import moment from "moment";
+import React, { useEffect } from "react";
+import { useTracking } from "react-tracking";
 import CustomButton from "../../components/Button/CustomButton";
 import CategoriesSection from "../../components/CategoriesSection/CategoriesSection";
 import CourseSection from "../../components/CourseSection/CourseSection";
@@ -10,6 +12,14 @@ import Testimonials from "../../components/Testimonials/Testimonials";
 import "./Home.css";
 
 const Home = () => {
+  const { trackEvent } = useTracking({ page: "home" });
+
+  useEffect(() => {
+    trackEvent({
+      action: "page_visit_home",
+      time: moment().format("DD-MM-YYYY hh:mm:ss"),
+    });
+  }, []);
   return (
     <div className="home">
       <div className="header">

@@ -69,3 +69,6 @@
 .fit-content.MuiButton-root {
   width: fit-content !important;
 }
+.rounded.MuiButton-root {
+  border-radius: 15px;
+}

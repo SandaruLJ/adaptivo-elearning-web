@@ -6,6 +6,9 @@
   left: 0;
   right: 0;
 }
+.home .header {
+  padding: 25px 45px;
+}
 .login-text {
   color: #231f40;
   font-weight: 700;

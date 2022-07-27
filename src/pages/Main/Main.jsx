@@ -7,6 +7,7 @@ import ViewCourse from "../ViewCourse/ViewCourse";
 import { useSelector } from "react-redux";
 import { useTracking } from "react-tracking";
 import Home from "../Home/Home";
+import MyCourses from "../MyCourses/MyCourses";
 
 const Main = () => {
   const user = useSelector((state) => state.auth.user);
@@ -15,8 +16,9 @@ const Main = () => {
   return (
     <Track>
       <Routes>
-        <Route exact path="/" element={<Home />}></Route>
+        <Route exact path="/home" element={<Home />}></Route>
         <Route exact path="/course" element={<ViewCourse />}></Route>
+        <Route exact path="/" element={<MyCourses />}></Route>
 
         {/* <Route exact path="/add/courses" element={<AddCourse />}></Route>
       <Route exact path="/courses" element={<AllCourse />}></Route>

@@ -3,7 +3,7 @@ import "./TopBar.css";
 import { Avatar, Divider, Grid, IconButton, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import { ArrowDropDown, Fullscreen, FullscreenExit, Logout } from "@mui/icons-material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CircularProgressWithIcon from "../CircularProgresswithIcon/CircularProgresswithIcon";
 import store from "../../store";
 import { useSelector } from "react-redux";
@@ -15,6 +15,7 @@ const TopBar = (props) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const courseName = useSelector((state) => state.course.courseName);
+  const navigate = useNavigate();
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -34,7 +35,7 @@ const TopBar = (props) => {
         <Grid container spacing="2" alignItems="center" justifyContent="space-between">
           <Grid item>
             <Grid container spacing="30" alignItems="center">
-              <Grid item>
+              <Grid item onClick={() => navigate("/")}>
                 {/* <Link to="/" className="logo">
                   adaptivo
                 </Link> */}

@@ -9,16 +9,23 @@ import { Checkbox, Grid } from "@mui/material";
 import { PlayCircle, Audiotrack, Description, Quiz } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { courseActions } from "../../store/course-slice";
+import { useTracking } from "react-tracking";
+import moment from "moment";
 
 export default function Unit(props) {
   const selectedUnit = useSelector((state) => state.course.selectedUnit);
   const [type, setType] = useState();
   const dispatch = useDispatch();
+  const { trackEvent } = useTracking();
 
   const handleUnitClick = () => {
     dispatch(courseActions.setSelectedUnit({ section: props.sectionNum - 1, unit: props.unitNum - 1 }));
     setMain();
     dispatch(courseActions.setNextUnit());
+    trackEvent({
+      action: "click_unit",
+      time: moment().format("DD-MM-YYYY hh:mm:ss"),
+    });
   };
 
   useEffect(() => {
