@@ -10,6 +10,7 @@ import CustomAccordion from "../../components/Accordion/Accordion";
 import CustomTab from "../../components/Tab/CustomTab";
 import "./QuizDisplay.css";
 import Box from '@mui/material/Box'
+import QuizStart from "./QuizStart";
 
 const QuizDisplay = () => {
   const [data, setData] = useState();
@@ -41,16 +42,10 @@ const QuizDisplay = () => {
 //   getData();
 // }, []);
 
-{
-  <Box component="div" fontSize={20}>
-     {quiz[0].question}
-   </Box>
-}
-
-
-// const QuizDisplay = (props) => {
   return (
     <div className="quiz_container">
+
+    
 
 <Button variant="outlined" className="button-cancel">Cancel</Button>
       <FormControl>
@@ -113,6 +108,6 @@ const QuizDisplay = () => {
 
     
   );
-// };
+
 }
 export default QuizDisplay;
