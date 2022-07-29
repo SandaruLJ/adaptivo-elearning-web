@@ -15,6 +15,8 @@ const TopBar = (props) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const courseName = useSelector((state) => state.course.courseName);
+  const progress = useSelector((state) => state.course.progress);
+
   const navigate = useNavigate();
 
   const open = Boolean(anchorEl);
@@ -54,7 +56,7 @@ const TopBar = (props) => {
               <Grid item>
                 <Grid container spacing={1} alignItems="center" className="mr-2">
                   <Grid item>
-                    <CircularProgressWithIcon value={25} />
+                    <CircularProgressWithIcon value={progress} />
                   </Grid>
                   <Grid item>
                     <h4>Your Progress</h4>

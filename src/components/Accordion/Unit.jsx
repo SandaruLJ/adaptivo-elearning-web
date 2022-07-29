@@ -11,13 +11,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { courseActions } from "../../store/course-slice";
 import { useTracking } from "react-tracking";
 import moment from "moment";
+import { markComplete, setCurrentUnit } from "../../service/usercourse.service";
 
 export default function Unit(props) {
   const selectedUnit = useSelector((state) => state.course.selectedUnit);
+  const curriculum = useSelector((state) => state.course.curriculum);
+
+  // const isCompleted = useSelector((state) => state.course.curriculum[props.sectionNum - 1].units[props.unitNum - 1].isComplete);
+  const id = useSelector((state) => state.course.id);
+
   const [type, setType] = useState();
+  const [checked, setChecked] = useState(props.unit.isCompleted);
   const dispatch = useDispatch();
   const { trackEvent } = useTracking();
 
+  useEffect(() => {
+    if (curriculum.length > 0) {
+      setChecked(curriculum[props.sectionNum - 1].units[props.unitNum - 1].isCompleted);
+      // console.log(curriculum[props.sectionNum - 1].units[props.unitNum - 1].isComplete);
+    }
+  }, [curriculum]);
   const handleUnitClick = () => {
     dispatch(courseActions.setSelectedUnit({ section: props.sectionNum - 1, unit: props.unitNum - 1 }));
     setMain();
@@ -26,18 +39,34 @@ export default function Unit(props) {
       action: "click_unit",
       time: moment().format("DD-MM-YYYY hh:mm:ss"),
     });
+    const request = {
+      _id: id,
+      sectionNum: props.sectionNum - 1,
+      unitNum: props.unitNum - 1,
+    };
+    setCurrentUnit(request);
   };
-
+  const handleChecked = (event) => {
+    setChecked(event.target.checked);
+    const request = {
+      _id: id,
+      sectionCount: props.sectionNum - 1,
+      unitCount: props.unitNum - 1,
+      isCompleted: event.target.checked,
+    };
+    markComplete(request);
+  };
   useEffect(() => {
     let type = props.unit.type;
     if (props.unit.isConceptLink) {
       type = "video";
     }
     setType(type);
-  });
+  }, []);
   const setMain = () => {
     let type = props.unit.type;
     let body;
+    let duration = curriculum[props.sectionNum - 1].units[props.unitNum - 1].duration;
     if (props.unit.isConceptLink) {
       type = "video";
       body = props.unit.loId.video.url;
@@ -50,7 +79,7 @@ export default function Unit(props) {
         body = props.unit.note;
       }
     }
-    dispatch(courseActions.setContent({ type, body }));
+    dispatch(courseActions.setContent({ type, body, duration }));
     setType(type);
 
     // props.setMain(type, body);
@@ -68,7 +97,7 @@ export default function Unit(props) {
   return (
     <Grid container spacing={2} alignItems={"center"} className={`single-content ${isSelected && "selected"}`} onClick={handleUnitClick}>
       <Grid item>
-        <Checkbox color="primary" lavel="checkbox" />
+        <Checkbox color="primary" lavel="checkbox" checked={checked} onChange={handleChecked} />
       </Grid>
       <Grid item>
         <div className="lecture-name">

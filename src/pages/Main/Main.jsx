@@ -17,7 +17,7 @@ const Main = () => {
     <Track>
       <Routes>
         <Route exact path="/home" element={<Home />}></Route>
-        <Route exact path="/course" element={<ViewCourse />}></Route>
+        <Route exact path="/course/:id" element={<ViewCourse />}></Route>
         <Route exact path="/" element={<MyCourses />}></Route>
 
         {/* <Route exact path="/add/courses" element={<AddCourse />}></Route>

@@ -18,6 +18,8 @@ import TopBar from "../../components/TopBar/TopBar";
 import PreferenceDialog from "../../components/Dialog/PreferenceDialog";
 import moment from "moment";
 import CourseOutline from "./CourseOutline";
+import { useParams } from "react-router-dom";
+import { getUserCourseById } from "../../service/usercourse.service";
 
 const ViewCourse = (props) => {
   const [data, setData] = useState();
@@ -26,17 +28,8 @@ const ViewCourse = (props) => {
   const type = useSelector((state) => state.course.contentType);
   const body = useSelector((state) => state.course.contentBody);
   const { Track, trackEvent } = useTracking({ page: "ViewCourse" });
+  const { id } = useParams();
 
-  const getData = async () => {
-    //Fetches the data from the db
-    const response = await getCourseById("628d437fd2ead54fca9b1b07");
-    console.log(response);
-    setData(response);
-    dispatch(courseActions.setCourseName(response.title));
-    dispatch(courseActions.setCurriculum([...response.curriculum]));
-    dispatch(courseActions.setSelectedUnit({ section: 0, unit: 0 }));
-    dispatch(courseActions.setNextUnit());
-  };
   useEffect(() => {
     getData();
     trackEvent({
@@ -45,6 +38,21 @@ const ViewCourse = (props) => {
     });
   }, []);
 
+  const getData = async () => {
+    //Fetches the data from the db
+    const response = await getUserCourseById(id);
+    console.log("In view course get data");
+    console.log(response);
+    dispatch(courseActions.setSelectedUnit({ section: response.currentUnit.sectionNum, unit: response.currentUnit.unitNum }));
+
+    dispatch(courseActions.setId(response._id));
+    dispatch(courseActions.setProgress(response.progress));
+    dispatch(courseActions.setCourseName(response.courseId.title));
+    dispatch(courseActions.setCurriculum([...response.learningPath]));
+    dispatch(courseActions.setNextUnit());
+    setData(response);
+  };
+
   // const setMain = (type, body) => {
   //   setType(type);
   //   setBody(body);
@@ -52,7 +60,7 @@ const ViewCourse = (props) => {
   const tabs = [
     {
       label: "Overview",
-      body: <Overview course={data} />,
+      body: data && <Overview course={data.courseId} />,
     },
     {
       label: "Q&A",
@@ -68,7 +76,7 @@ const ViewCourse = (props) => {
     },
     {
       label: "Outline",
-      body: <CourseOutline course={data} />,
+      body: data && <CourseOutline course={data.courseId} />,
     },
   ];
 
@@ -88,7 +96,7 @@ const ViewCourse = (props) => {
           </Grid>
           <Grid item xs={3} className="course-content">
             <div className="course-content-title">Course Content</div>
-            {data && <CustomAccordion curriculum={data.curriculum} />}
+            {data && <CustomAccordion curriculum={data.learningPath} />}
           </Grid>
         </Grid>
       </div>
