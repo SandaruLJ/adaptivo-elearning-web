@@ -20,6 +20,7 @@ import moment from "moment";
 import CourseOutline from "./CourseOutline";
 import { useParams } from "react-router-dom";
 import { getUserCourseById } from "../../service/usercourse.service";
+import PdfViewer from "../../components/PdfViewer/PdfViewer";
 
 const ViewCourse = (props) => {
   const [data, setData] = useState();
@@ -91,6 +92,7 @@ const ViewCourse = (props) => {
               {type == "video" && <VideoPlayer src={body} setOverlay={setOverlay} />}
               {type == "note" && <NoteDisplay note={body} setOverlay={setOverlay} />}
               {type == "quiz" && <QuizDisplay note={body} setOverlay={setOverlay} />}
+              {type == "file" && <PdfViewer url={body} setOverlay={setOverlay} />}
             </div>
             {data && <CustomTab tabs={tabs} />}
           </Grid>

@@ -78,6 +78,8 @@ export default function Unit(props) {
         body = props.unit.audio.url;
       } else if (type == "note") {
         body = props.unit.note;
+      } else if (type == "file") {
+        body = props.unit.file.url;
       }
     }
     dispatch(courseActions.setContent({ type, body, duration }));
