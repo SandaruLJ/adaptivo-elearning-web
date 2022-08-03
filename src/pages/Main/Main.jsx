@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { BrowserRouter as Router, Redirect, Route, Routes } from "react-router-dom";
 
@@ -7,13 +7,14 @@ import ViewCourse from "../ViewCourse/ViewCourse";
 import { useSelector } from "react-redux";
 import { useTracking } from "react-tracking";
 import Home from "../Home/Home";
+import MyCourses from "../MyCourses/MyCourses";
 import CustomAuthenticator from "../../components/CustomAuthenticator/CustomAuthenticator";
 import { RequireAuth } from "../../components/CustomAuthenticator/RequireAuth";
 import { Authenticator } from "@aws-amplify/ui-react";
+import { Auth } from "aws-amplify";
 
 const Main = () => {
-  const user = useSelector((state) => state.auth.user);
-  const { Track, trackEvent } = useTracking({ user: user.attributes && user.attributes.email });
+  const { Track, trackEvent } = useTracking();
 
   return (
     <Authenticator.Provider>
@@ -22,7 +23,17 @@ const Main = () => {
           <Route exact path="/" element={<Home />}></Route>
 
           <Route
-            exact path="/course"
+            exact
+            path="/mycourses"
+            element={
+              <RequireAuth>
+                <MyCourses />
+              </RequireAuth>
+            }
+          />
+          <Route
+            exact
+            path="/course/:id"
             element={
               <RequireAuth>
                 <ViewCourse />

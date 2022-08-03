@@ -62,7 +62,8 @@ const DialogComponent = React.forwardRef((props, ref) => {
   return (
     <div>
       <Dialog open={open} onClose={handleClose} className="dialog">
-        <DialogTitle>{props.title}</DialogTitle>
+        {props.displayTitle != false && <DialogTitle>{props.title}</DialogTitle>}
+
         <DialogContent>{props.body}</DialogContent>
 
         {props.displayActionButtons && button}

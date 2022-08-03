@@ -65,3 +65,14 @@
 .cancel-text:hover {
   text-decoration: underline;
 }
+.outline-section-name {
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 15px;
+}
+.outline-list {
+  padding: 10px 0 0 50px;
+}
+.outline-list li {
+  line-height: 30px;
+}

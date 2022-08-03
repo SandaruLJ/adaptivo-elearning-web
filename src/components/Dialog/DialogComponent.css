@@ -1,6 +1,8 @@
 .dialog .MuiPaper-root.MuiDialog-paper {
   min-width: 450px !important;
   padding-bottom: 10px;
+  width: 800px;
+  max-width: 800px;
 }
 .dialog .MuiDialogTitle-root {
   background: linear-gradient(177.02deg, #ff9c3f 0%, #ffc018 72.73%);
@@ -15,4 +17,57 @@
   font-size: 18px;
   font-weight: 700;
   padding-bottom: 15px;
+}
+.preference-dialog {
+  padding: 25px 15px;
+}
+.preference-dialog .welcome-txt {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: #ff9c3f;
+}
+.quick-tour-start-txt {
+  font-size: 30px;
+  font-weight: 800;
+  padding: 15px 0px;
+}
+.quick-start-caption {
+  font-weight: 600;
+  color: #888;
+}
+.onboarding-image-1 {
+  width: 400px;
+  margin-left: -100px;
+}
+.progress-circle-container {
+  display: flex;
+  column-gap: 5px;
+  right: 30px;
+  bottom: 30px;
+  position: absolute;
+}
+.progress-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #d8d7d7;
+}
+.progress-circle.selected {
+  background-color: #ff9c3f;
+}
+.preference-dialog-btn-container {
+  padding-top: 40px;
+}
+.preference-data-container {
+  padding-right: 100px;
+}
+.preference-dialog .close-icon {
+  right: 20px;
+  top: 20px;
+  position: absolute;
+  cursor: pointer;
+}
+.preference-dialog .MuiSvgIcon-root {
+  color: #888;
 }
