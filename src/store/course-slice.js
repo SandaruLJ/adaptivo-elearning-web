@@ -59,13 +59,17 @@ const courseSlice = createSlice({
       const selectedSection = state.selectedUnit.section;
       const selectedUnit = state.selectedUnit.unit;
       const curriculum = state.curriculum;
-      curriculum[selectedSection].units[selectedUnit].isCompleted = true;
+      if (actions.payload.hasOwnProperty("isCompleted")) {
+        curriculum[selectedSection].units[selectedUnit].isCompleted = actions.payload.isCompleted;
+      } else {
+        curriculum[selectedSection].units[selectedUnit].isCompleted = true;
+      }
 
       const completeRequest = {
         _id: state.id,
         sectionCount: selectedSection,
         unitCount: selectedUnit,
-        isCompleted: true,
+        isCompleted: actions.payload.hasOwnProperty("isCompleted") ? actions.payload.isCompleted : true,
       };
       state.curriculum = curriculum;
 

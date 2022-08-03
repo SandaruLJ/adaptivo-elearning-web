@@ -12,9 +12,22 @@ import { useSelector } from "react-redux";
 
 export default function Section(props) {
   const selectedUnit = useSelector((state) => state.course.selectedUnit);
-
+  const [viewedUnits, setViewedUnits] = React.useState();
   const [expanded, setExpanded] = React.useState(selectedUnit.section);
+  const curriculum = useSelector((state) => state.course.curriculum);
 
+  React.useEffect(() => {
+    console.log("Curriculum change");
+    let count = 0;
+    curriculum[props.sectionNum - 1].units.map((unit) => {
+      if (unit.isCompleted) {
+        count++;
+      }
+    });
+    console.log("Section Num = " + props.sectionNum);
+    console.log("Count = " + count);
+    setViewedUnits(count);
+  }, [curriculum]);
   React.useEffect(() => {
     setExpanded(selectedUnit.section);
   }, [selectedUnit.section]);
@@ -31,7 +44,7 @@ export default function Section(props) {
             Section {props.sectionNum}: {props.title}
           </div>
           <div className="section-title-caption">
-            {props.viewedUnits} / {props.totalUnits} | {props.sectionDuration}
+            {viewedUnits} / {props.totalUnits} | {props.sectionDuration}
           </div>
         </AccordionSummary>
         <AccordionDetails>

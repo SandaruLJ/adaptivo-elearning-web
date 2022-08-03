@@ -30,3 +30,18 @@
   background-color: white;
   padding: 2px 15px;
 }
+
+.firstname {
+  align-self: center;
+}
+.my-course-txt,
+.firstname {
+  color: black;
+  font-family: sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+.my-course-txt:hover,
+.firstname:hover {
+  text-decoration: underline;
+}

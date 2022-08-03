@@ -10,22 +10,27 @@ import LinearProgressWithLabel from "../../components/LinearProgress/LinearProgr
 import { getAllCoursesByUserId } from "../../service/usercourse.service";
 import "./MyCourses.css";
 import SingleMyCourse from "./SingleMyCourse";
+import { Auth } from "aws-amplify";
 
 const MyCourses = () => {
   const { Track, trackEvent } = useTracking({ page: "myCourses" });
   const [data, setData] = useState();
 
-  const getData = async () => {
+  const getData = async (email) => {
     //Fetches the data from the db
-    const response = await getAllCoursesByUserId("62272fbfc8ea4d8b75b76aa2");
+    // const response = await getAllCoursesByUserId("62272fbfc8ea4d8b75b76aa2");
+    const response = await getAllCoursesByUserId(email);
+
     setData(response);
   };
 
   useEffect(() => {
-    getData();
     trackEvent({
       action: "page_visit_myCourses",
       time: moment().format("DD-MM-YYYY hh:mm:ss"),
+    });
+    Auth.currentAuthenticatedUser().then((data) => {
+      getData(data.attributes.email);
     });
   }, []);
 

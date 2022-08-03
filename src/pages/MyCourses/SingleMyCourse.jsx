@@ -34,7 +34,7 @@ const SingleMyCourse = (props) => {
 
           <div className="mt-1">
             {props.progress == 0 ? (
-              <CustomButton color="orange fit-content" name="Start Learning" />
+              <CustomButton color="orange fit-content" name="Start Learning" onclick={() => navigate(`/course/${props.id}`)} />
             ) : (
               <CustomButton color="light-orange-bordered fit-content" name="Continue Learning" onclick={() => navigate(`/course/${props.id}`)} />
             )}

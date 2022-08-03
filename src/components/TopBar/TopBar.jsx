@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./TopBar.css";
 import { Avatar, Divider, Grid, IconButton, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import { ArrowDropDown, Fullscreen, FullscreenExit, Logout } from "@mui/icons-material";
@@ -7,17 +7,18 @@ import { Link, useNavigate } from "react-router-dom";
 import CircularProgressWithIcon from "../CircularProgresswithIcon/CircularProgresswithIcon";
 import store from "../../store";
 import { useSelector } from "react-redux";
+import { Auth } from "aws-amplify";
 
 //Admin TopBar
 const TopBar = (props) => {
   const state = store.getState();
-  const userInitials = `${state.auth.user.attributes.given_name[0]}${state.auth.user.attributes.family_name[0]}`;
+  const navigate = useNavigate();
+
+  const [userInitials, setUserInitials] = useState("");
 
   const [anchorEl, setAnchorEl] = useState(null);
   const courseName = useSelector((state) => state.course.courseName);
   const progress = useSelector((state) => state.course.progress);
-
-  const navigate = useNavigate();
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -25,6 +26,17 @@ const TopBar = (props) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  useEffect(() => {
+    Auth.currentAuthenticatedUser().then((data) => {
+      setUserInitials(`${data.attributes.given_name[0]}${data.attributes.family_name[0]}`);
+    });
+  }, []);
+
+  const handleLogout = () => {
+    Auth.signOut();
+    navigate("/");
   };
 
   return (
@@ -125,7 +137,7 @@ const TopBar = (props) => {
             <Avatar /> My Profile
           </MenuItem>
           <Divider />
-          <MenuItem onClick={props.signOut}>
+          <MenuItem onClick={handleLogout}>
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>

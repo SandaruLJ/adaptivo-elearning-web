@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { BrowserRouter as Router, Redirect, Route, Routes } from "react-router-dom";
 
@@ -8,26 +8,51 @@ import { useSelector } from "react-redux";
 import { useTracking } from "react-tracking";
 import Home from "../Home/Home";
 import MyCourses from "../MyCourses/MyCourses";
+import CustomAuthenticator from "../../components/CustomAuthenticator/CustomAuthenticator";
+import { RequireAuth } from "../../components/CustomAuthenticator/RequireAuth";
+import { Authenticator } from "@aws-amplify/ui-react";
+import { Auth } from "aws-amplify";
 
 const Main = () => {
-  const user = useSelector((state) => state.auth.user);
-  const { Track, trackEvent } = useTracking({ user: user.attributes.email });
+  const { Track, trackEvent } = useTracking();
 
   return (
-    <Track>
-      <Routes>
-        <Route exact path="/home" element={<Home />}></Route>
-        <Route exact path="/course/:id" element={<ViewCourse />}></Route>
-        <Route exact path="/" element={<MyCourses />}></Route>
+    <Authenticator.Provider>
+      <Track>
+        <Routes>
+          <Route exact path="/" element={<Home />}></Route>
 
-        {/* <Route exact path="/add/courses" element={<AddCourse />}></Route>
-      <Route exact path="/courses" element={<AllCourse />}></Route>
-      <Route exact path="/qna" element={<AddQuestion />}></Route>
-      <Route exact path="/users" element={<AddUser />}></Route>
-      <Route exact path="/categories/add" element={<AddCategory />}></Route>
-      <Route exact path="/categories" element={<AllCategory />}></Route> */}
-      </Routes>
-    </Track>
+          <Route
+            exact
+            path="/mycourses"
+            element={
+              <RequireAuth>
+                <MyCourses />
+              </RequireAuth>
+            }
+          />
+          <Route
+            exact
+            path="/course/:id"
+            element={
+              <RequireAuth>
+                <ViewCourse />
+              </RequireAuth>
+            }
+          />
+
+          {/* <Route exact path="/add/courses" element={<AddCourse />}></Route>
+        <Route exact path="/courses" element={<AllCourse />}></Route>
+        <Route exact path="/qna" element={<AddQuestion />}></Route>
+        <Route exact path="/users" element={<AddUser />}></Route>
+        <Route exact path="/categories/add" element={<AddCategory />}></Route>
+        <Route exact path="/categories" element={<AllCategory />}></Route> */}
+
+          <Route path="/login" element={<CustomAuthenticator initialState="signIn" />} />
+          <Route path="/signup" element={<CustomAuthenticator initialState="signUp" />} />
+        </Routes>
+      </Track>
+    </Authenticator.Provider>
   );
 };
 export default Main;

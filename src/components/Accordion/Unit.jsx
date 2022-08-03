@@ -54,7 +54,8 @@ export default function Unit(props) {
       unitCount: props.unitNum - 1,
       isCompleted: event.target.checked,
     };
-    markComplete(request);
+    // markComplete(request);
+    dispatch(courseActions.markComplete({ isCompleted: event.target.checked }));
   };
   useEffect(() => {
     let type = props.unit.type;
