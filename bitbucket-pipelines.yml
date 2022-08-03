@@ -1,0 +1,18 @@
+image: atlassian/default-image:3
+
+pipelines:
+  default:
+    - step:
+        name: 'Build Docker image'
+        script:
+          - docker build . -t sparkcoders/elearning-web:latest
+        services:
+          - docker
+    - step:
+        name: 'Push Docker image to Docker Hub repository'
+        deployment: testing
+        script:
+          - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
+          - docker push sparkcoders/elearning-web:latest
+        services:
+          - docker
