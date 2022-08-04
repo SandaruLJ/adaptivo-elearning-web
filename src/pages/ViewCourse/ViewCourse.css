@@ -65,6 +65,12 @@
 .cancel-text:hover {
   text-decoration: underline;
 }
+
+/* Button{
+  position: absolute; 
+  right: 0;
+  bottom: 0;
+} */
 .outline-section-name {
   font-weight: 600;
   font-size: 18px;
