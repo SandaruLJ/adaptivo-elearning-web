@@ -1,0 +1,87 @@
+.testimonials {
+  padding: 100px 45px;
+  position: relative;
+}
+.testimonials-banner {
+  border-radius: 100%;
+}
+.circle-image,
+.circle-image span {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.circle-image {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.circle-image span:first-child {
+  border-radius: 38% 62% 64% 36%/43% 35% 65% 57%;
+}
+@keyframes rotate-animate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(1turn);
+    transform: rotate(1turn);
+  }
+}
+.circle-image span {
+  -webkit-animation: rotate-animate 13s linear infinite;
+  animation: rotate-animate 13s linear infinite;
+  border: 2px solid #f86f03;
+  pointer-events: none;
+}
+.circle-image span:nth-child(2) {
+  animation-direction: reverse;
+  border-radius: 41% 59% 40% 60%/65% 66% 34% 35%;
+}
+.circle-image-wrapper {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+.circle-image-wrapper .circle-image {
+  z-index: -1;
+}
+.testimonial-text {
+  color: #f86f03;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  line-height: 36px;
+  padding-bottom: 5px;
+}
+.student-feedback-title {
+  font-weight: 700;
+  font-size: 42px;
+  letter-spacing: 1.2px;
+}
+.testimonials .feedback {
+  padding: 25px 0px;
+}
+.testimonial-feedback-section {
+  padding: 20px;
+}
+.feedback-student-name {
+  font-weight: 700;
+  font-size: 24px;
+  font-style: italic;
+}
+.feedback-student-designation {
+  color: #666;
+  font-weight: 600;
+  font-style: italic;
+}
+.shape-10 {
+  right: 60px;
+  top: 40px;
+}
+.shape-10 img {
+  width: 250px;
+}

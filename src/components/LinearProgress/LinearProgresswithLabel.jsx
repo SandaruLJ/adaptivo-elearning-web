@@ -7,11 +7,13 @@ const LinearProgressWithLabel = (props) => {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }} className="linear-progress">
       <Box sx={{ width: "100%", mr: 1 }}>
-        <LinearProgress variant="determinate" color="secondary" {...props} />
+        <LinearProgress variant="determinate" color="primary" {...props} />
       </Box>
-      <Box sx={{ minWidth: 35 }}>
-        <Typography variant="body2" color="text.primary">{`${Math.round(props.value)}%`}</Typography>
-      </Box>
+      {props.displayValue && (
+        <Box sx={{ minWidth: 35 }}>
+          <Typography variant="h6" color="text.primary">{`${Math.round(props.value)}%`}</Typography>
+        </Box>
+      )}
     </Box>
   );
 };

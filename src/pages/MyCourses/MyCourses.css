@@ -1,0 +1,81 @@
+.page-body {
+  padding-top: 100px;
+}
+.page-title-container {
+  padding: 60px;
+  background-image: url("/public/images/top-container/top-container5.jpg");
+  background-size: cover;
+  position: relative;
+  /* background:linear-gradient(123deg, #ff9c3fd9 0%, #ffd25ad9 72.73%);; */
+}
+.page-title-inner-container {
+  max-width: 1170px;
+}
+.page-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+.page-breadcrumb {
+  color: #777;
+  padding-top: 10px;
+}
+.shape-top-1 {
+  left: 30px;
+  top: 20px;
+}
+.shape-top-2 {
+  top: 150px;
+}
+.shape-top-3 {
+  top: 120px;
+  left: 350px;
+}
+.shape-top-4 {
+  top: 20px;
+  left: 650px;
+}
+.shape-top-5 {
+  top: 20px;
+  right: 250px;
+}
+.shape-top-6 {
+  top: 150px;
+  right: 50px;
+}
+.shape-top-7 {
+  top: 100px;
+  right: 480px;
+}
+.my-course-container {
+  width: 1170px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  position: relative;
+}
+.my-course-thumbnail {
+  width: 200px;
+  height: 150px;
+}
+.my-course-name {
+  font-size: 20px;
+  font-weight: 700;
+}
+.my-course-instructor {
+  font-size: 18px;
+  font-weight: 600;
+  color: #777;
+}
+.completion-percentage {
+  padding-top: 10px;
+}
+.completion-percentage-value {
+  padding-top: 2px;
+  font-weight: 600;
+}
+.ratings-container {
+  position: absolute;
+  right: 0;
+  top: 10px;
+}

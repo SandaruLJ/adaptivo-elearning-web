@@ -100,9 +100,19 @@ const QuizDisplay = () => {
 
       </FormControl>
 
-      <Button className="button-next" variant="contained">next</Button>
+      {/* <Button className="button-next" variant="contained">next</Button> */}
        
 
+      <div className="quiz-action-btns">
+        <Grid container justifyContent="space-between" className="mt-2">
+          <Grid item>
+            <CustomButton name="Previous" color="grey" type="cancel" />
+          </Grid>
+          <Grid item>
+            <CustomButton name="Next" color="orange" type="submit" />
+          </Grid>
+        </Grid>
+      </div>
     </div>
     
 

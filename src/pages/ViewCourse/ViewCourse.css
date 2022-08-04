@@ -7,6 +7,8 @@
   width: 100%;
   height: 75vh;
   position: relative;
+  overflow: auto;
+  margin-top: 70px;
 }
 .course-content-title {
   padding: 15px;
@@ -32,9 +34,11 @@
   background-color: white;
 }
 .note-container {
-  padding: 15px;
+  padding: 20px;
 }
-
+.quiz-container {
+  padding: 20px;
+}
 .view-course-overlay {
   background: rgb(27 27 27 / 97%);
   position: absolute;
@@ -62,29 +66,19 @@
   text-decoration: underline;
 }
 
- 
- .quiz_container{
-   /* padding: 80px; */
-   /* width: 100%;
-  height: 100px; */
-
-} 
-/* .course-content-title {
-  padding: 15px;
-  font-weight: 700;
-  background-color: white;
-  font-size: 20px;
-  border-bottom: 1px solid #e5e5e5;
-  border-top: 1px solid #e5e5e5;
-}
-.course-content {
-  background-color: #f7f9fa;
-  position: fixed;
-  right: 0;
-  width: 100%;
-} */
-Button{
+/* Button{
   position: absolute; 
   right: 0;
   bottom: 0;
+} */
+.outline-section-name {
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 15px;
+}
+.outline-list {
+  padding: 10px 0 0 50px;
+}
+.outline-list li {
+  line-height: 30px;
 }

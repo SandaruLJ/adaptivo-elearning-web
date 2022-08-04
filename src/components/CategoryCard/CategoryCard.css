@@ -1,0 +1,83 @@
+.category-card-icon {
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.category-card-name {
+  color: #666;
+  font-weight: 600;
+}
+.category-card {
+  text-align: center;
+  cursor: pointer;
+  padding: 0 10px;
+}
+.blue-bg {
+  background-color: rgba(66, 112, 255, 0.1);
+  color: #4270ff;
+}
+.blue-bg:hover {
+  background-color: #4270ff;
+  color: white;
+}
+.pink-bg {
+  background-color: rgba(255, 100, 112, 0.1);
+  color: rgb(255, 100, 112);
+}
+.pink-bg:hover {
+  background-color: rgb(255, 100, 112);
+  color: white;
+}
+.green-bg {
+  background-color: rgba(39, 170, 77, 0.1);
+  color: rgb(39, 170, 77);
+}
+.green-bg:hover {
+  background-color: rgb(39, 170, 77);
+  color: white;
+}
+.orange-bg {
+  background-color: rgba(243, 127, 67, 0.1);
+  color: rgb(243, 127, 67);
+}
+.orange-bg:hover {
+  background-color: rgb(243, 127, 67);
+  color: white;
+}
+.purple-bg {
+  background-color: rgba(227, 60, 255, 0.1);
+  color: rgb(227, 60, 255);
+}
+.purple-bg:hover {
+  background-color: rgb(227, 60, 255);
+  color: white;
+}
+.light-green-bg {
+  background-color: rgba(32, 173, 150, 0.1);
+  color: rgb(32, 173, 150);
+}
+.light-green-bg:hover {
+  background-color: rgb(32, 173, 150);
+  color: white;
+}
+.yellow-bg {
+  background-color: rgba(245, 180, 85, 0.1);
+  color: rgb(245, 180, 85);
+}
+.yellow-bg:hover {
+  background-color: rgb(245, 180, 85);
+  color: white;
+}
+
+.violet-bg {
+  background-color: rgba(97, 81, 251, 0.1);
+  color: rgb(97, 81, 251);
+}
+.violet-bg:hover {
+  background-color: rgb(97, 81, 251);
+  color: white;
+}

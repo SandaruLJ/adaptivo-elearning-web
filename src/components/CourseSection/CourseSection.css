@@ -1,0 +1,12 @@
+.course-section {
+  padding: 25px 45px;
+  position: relative;
+  top: -25px;
+}
+.course-section .section-title {
+  font-size: 32px;
+  font-weight: 700;
+}
+.course-section .section-categories {
+  padding: 15px 0px 20px;
+}
