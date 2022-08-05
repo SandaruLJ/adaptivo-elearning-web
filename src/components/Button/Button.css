@@ -8,6 +8,8 @@
 .orange.MuiButton-root {
   background: linear-gradient(95.06deg, #f6a458 0%, #ffb900 107.76%);
   color: white !important;
+  /* padding: 10px 25px !important; */
+  width: 100% !important;
 }
 .orange.MuiButton-root:hover {
   background: #ff9e43;
@@ -15,6 +17,9 @@
 .grey.MuiButton-root {
   background: #e7e7e7;
   color: #474747;
+  width: 100% !important;
+
+  /* padding: 10px 25px !important; */
 }
 .grey.MuiButton-root:hover {
   background: #808080;
@@ -33,7 +38,7 @@
 }
 .light-orange-bordered.MuiButton-root {
   width: 100% !important;
-  padding: 10px 25px !important;
+  padding: 5px 20px !important;
   background-color: #ffeee7 !important;
   color: #fe825c;
   text-transform: capitalize;
@@ -57,7 +62,7 @@
 }
 .light-grey-bordered.MuiButton-root {
   width: 100% !important;
-  padding: 10px 25px !important;
+  /* padding: 10px 25px !important; */
   background-color: #fbfcff !important;
   color: #808191;
   text-transform: capitalize;
@@ -66,6 +71,31 @@
   box-shadow: none;
   border: 1px solid #e5f1fb;
 }
+.light-red-bordered.MuiButton-root {
+  width: 100% !important;
+  padding: 5px 20px !important;
+  background-color: #e46161 !important;
+  color: #ffffff;
+  text-transform: capitalize;
+  font-size: 16px;
+  border-radius: 10px;
+  box-shadow: none;
+  border: 2px solid #c50606;
+}
+.light-green-bordered.MuiButton-root {
+  width: 100% !important;
+  padding: 5px 20px !important;
+  background-color: #0c7401b5 !important;
+  color: #ffffff;
+  text-transform: capitalize;
+  font-size: 16px;
+  border-radius: 10px;
+  box-shadow: none;
+  border: 2px solid #158d0e;
+}
 .fit-content.MuiButton-root {
   width: fit-content !important;
+}
+.rounded.MuiButton-root {
+  border-radius: 15px;
 }

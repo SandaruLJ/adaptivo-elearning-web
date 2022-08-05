@@ -1,20 +1,24 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./TopBar.css";
 import { Avatar, Divider, Grid, IconButton, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import { ArrowDropDown, Fullscreen, FullscreenExit, Logout } from "@mui/icons-material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CircularProgressWithIcon from "../CircularProgresswithIcon/CircularProgresswithIcon";
 import store from "../../store";
 import { useSelector } from "react-redux";
+import { Auth } from "aws-amplify";
 
 //Admin TopBar
 const TopBar = (props) => {
   const state = store.getState();
-  const userInitials = `${state.auth.user.attributes.given_name[0]}${state.auth.user.attributes.family_name[0]}`;
+  const navigate = useNavigate();
+
+  const [userInitials, setUserInitials] = useState("");
 
   const [anchorEl, setAnchorEl] = useState(null);
   const courseName = useSelector((state) => state.course.courseName);
+  const progress = useSelector((state) => state.course.progress);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -22,6 +26,17 @@ const TopBar = (props) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  useEffect(() => {
+    Auth.currentAuthenticatedUser().then((data) => {
+      setUserInitials(`${data.attributes.given_name[0]}${data.attributes.family_name[0]}`);
+    });
+  }, []);
+
+  const handleLogout = () => {
+    Auth.signOut();
+    navigate("/");
   };
 
   return (
@@ -34,7 +49,7 @@ const TopBar = (props) => {
         <Grid container spacing="2" alignItems="center" justifyContent="space-between">
           <Grid item>
             <Grid container spacing="30" alignItems="center">
-              <Grid item>
+              <Grid item onClick={() => navigate("/")}>
                 {/* <Link to="/" className="logo">
                   adaptivo
                 </Link> */}
@@ -53,7 +68,7 @@ const TopBar = (props) => {
               <Grid item>
                 <Grid container spacing={1} alignItems="center" className="mr-2">
                   <Grid item>
-                    <CircularProgressWithIcon value={25} />
+                    <CircularProgressWithIcon value={progress} />
                   </Grid>
                   <Grid item>
                     <h4>Your Progress</h4>
@@ -122,7 +137,7 @@ const TopBar = (props) => {
             <Avatar /> My Profile
           </MenuItem>
           <Divider />
-          <MenuItem onClick={props.signOut}>
+          <MenuItem onClick={handleLogout}>
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>

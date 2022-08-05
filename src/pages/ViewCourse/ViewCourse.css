@@ -37,7 +37,7 @@
   padding: 20px;
 }
 .quiz-container {
-  padding: 20px;
+  padding: 30px;
 }
 .view-course-overlay {
   background: rgb(27 27 27 / 97%);
@@ -104,4 +104,120 @@ width: 50px;
 .detail-label{
   font-size: 16px;
   font-weight: 700;
+}
+/* Button{
+  position: absolute; 
+  right: 0;
+  bottom: 0;
+} */
+.outline-section-name {
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 15px;
+}
+.outline-list {
+  padding: 10px 0 0 50px;
+}
+.outline-list li {
+  line-height: 30px;
+}
+.start-quiz-container {
+  padding: 30px 50px;
+}
+.quiz-question {
+  display: flex;
+  row-gap: 2;
+  column-gap: 10px;
+  font-weight: 700;
+  font-size: 20px;
+}
+.quiz-question span {
+  font-size: 20px !important;
+}
+.quiz-action-btns {
+  margin-top: 30px;
+}
+.finish-score-container {
+  background: rgb(15 85 0);
+  color: white;
+  padding: 40px 40px;
+}
+.great {
+  background: rgb(15 85 0);
+}
+.good {
+  background: rgb(39, 190, 5);
+}
+.average {
+  background: #c90a0a;
+}
+.poor {
+  background: #970000;
+}
+.finish-quiz-body {
+  padding: 40px;
+}
+.finish-quiz-body ul {
+  padding: 10px 20px;
+}
+.correct,
+.correct span {
+  color: green !important;
+}
+.wrong,
+.wrong span {
+  color: red !important;
+}
+.wrong-answer-container {
+  color: #c90a0a;
+  background: #ff00003d;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #c90a0a;
+  margin-bottom: 15px;
+}
+.wrong-answer-container span,
+.correct-answer-container span,
+.explanation-container-wrong span,
+.explanation-container-correct span {
+  background-color: transparent !important;
+}
+.correct-answer-container {
+  color: rgb(15 85 0);
+  background: rgb(65 207 33 / 22%);
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid rgb(65 207 33 / 100%);
+  margin-bottom: 15px;
+}
+
+.explanation-container-wrong {
+  margin-top: 20px;
+  background-color: #ffeee7;
+
+  border: 2px solid #fe825c45;
+  padding: 25px;
+  border-radius: 15px;
+}
+.explanation-container-wrong h3 {
+  font-weight: 700;
+  color: red;
+}
+
+.explanation-container-correct {
+  margin-top: 20px;
+  background-color: #41cf2114;
+  border: 2px solid #219c06;
+  padding: 25px;
+  border-radius: 15px;
+}
+.explanation-container-correct h3 {
+  font-weight: 700;
+  color: #219c06;
+}
+.explanation-txt {
+  font-weight: 700;
+  text-decoration: underline;
+  padding-bottom: 10px;
+  font-size: 20px;
 }

@@ -10,6 +10,8 @@ import { PlayCircle } from "@mui/icons-material";
 import Section from "./Section";
 
 export default function CustomAccordion(props) {
+
+  
   return (
     <div className="accordion">
       {props.curriculum.map((section, index) => {
