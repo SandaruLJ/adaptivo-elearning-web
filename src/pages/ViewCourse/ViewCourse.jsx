@@ -16,6 +16,7 @@ import { useTracking } from "react-tracking";
 import QuizDisplay from "./QuizDisplay";
 import TopBar from "../../components/TopBar/TopBar";
 import PreferenceDialog from "../../components/Dialog/PreferenceDialog";
+import QandA from "./QandA";
 
 const ViewCourse = (props) => {
   const [data, setData] = useState();
@@ -50,7 +51,7 @@ const ViewCourse = (props) => {
     },
     {
       label: "Q&A",
-      body: <div>Q&A</div>,
+      body: <QandA/>
     },
     {
       label: "Notes",
