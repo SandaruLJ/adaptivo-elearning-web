@@ -9,6 +9,7 @@ import "../src/styles/authenticator.css";
 import { useTracking } from "react-tracking";
 import { addActivity } from "./service/activity.service";
 import { Auth } from "aws-amplify";
+import Home from "./pages/Home/Home";
 
 export const App = () => {
   // const user = useSelector((state) => state.auth.user);
@@ -35,13 +36,11 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {user && (
-          <div className="main">
-            <Track>
-              <Main />
-            </Track>
-          </div>
-        )}
+        <div className="main">
+          <Track>
+            <Main />
+          </Track>
+        </div>
       </Router>
     </ThemeProvider>
   );
