@@ -68,20 +68,17 @@ export default function Unit(props) {
     let type = props.unit.type;
     let body;
     let duration = curriculum[props.sectionNum - 1].units[props.unitNum - 1].duration;
-    if (props.unit.isConceptLink) {
-      type = "video";
-      body = props.unit.loId.video.url;
-    } else {
-      if (type == "video") {
-        body = props.unit.video.url;
-      } else if (type == "audio") {
-        body = props.unit.audio.url;
-      } else if (type == "note") {
-        body = props.unit.note;
-      } else if (type == "file") {
-        body = props.unit.file.url;
-      }
+
+    if (type == "video") {
+      body = props.unit.video.url;
+    } else if (type == "audio") {
+      body = props.unit.audio.url;
+    } else if (type == "note") {
+      body = props.unit.note;
+    } else if (type == "file") {
+      body = props.unit.file.url;
     }
+
     dispatch(courseActions.setContent({ type, body, duration }));
     setType(type);
 

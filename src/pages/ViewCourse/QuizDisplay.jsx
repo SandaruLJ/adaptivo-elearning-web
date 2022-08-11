@@ -28,7 +28,7 @@ const QuizDisplay = () => {
   const dispatch = useDispatch();
   const selectedUnit = useSelector((state) => state.course.selectedUnit);
   const unit = useSelector((state) => state.course.curriculum[selectedUnit.section]["units"][selectedUnit.unit]);
-  const quiz = unit.quiz;
+  const quiz = unit.quiz.questions;
 
   useEffect(() => {
     if (answers.length == 0) {
@@ -98,7 +98,7 @@ const QuizDisplay = () => {
             <strong>Quiz: {unit.name}</strong>
           </h2>
           <div className="caption">
-            {unit.quiz.length} {unit.quiz.length == 1 ? "question" : "questions"}
+            {quiz.length} {quiz.length == 1 ? "question" : "questions"}
           </div>
           <div className="mt-3">
             <Grid container spacing={2}>
