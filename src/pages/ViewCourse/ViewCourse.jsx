@@ -22,6 +22,7 @@ import CourseOutline from "./CourseOutline";
 import { useParams } from "react-router-dom";
 import { getUserCourseById } from "../../service/usercourse.service";
 import PdfViewer from "../../components/PdfViewer/PdfViewer";
+import PreTestDisplay from "./PreTestDisplay";
 
 const ViewCourse = (props) => {
   const [data, setData] = useState();
@@ -95,18 +96,12 @@ const ViewCourse = (props) => {
           <Grid item xs={9} className="view-course-left-container">
             <div className="view-course-main-container">
               {overlay && <CourseOverlay setOverlay={setOverlay} />}
-              {type == "video" && (
-                <VideoPlayer src={body} setOverlay={setOverlay} />
-              )}
-              {type == "note" && (
-                <NoteDisplay note={body} setOverlay={setOverlay} />
-              )}
-              {type == "quiz" && (
-                <QuizDisplay note={body} setOverlay={setOverlay} />
-              )}
-              {type == "file" && (
-                <PdfViewer url={body} setOverlay={setOverlay} />
-              )}
+              {type == "video" && <VideoPlayer src={body} setOverlay={setOverlay} />}
+              {type == "note" && <NoteDisplay note={body} setOverlay={setOverlay} />}
+              {type == "quiz" && <QuizDisplay note={body} setOverlay={setOverlay} />}
+              {type == "preTest" && <PreTestDisplay note={body} setOverlay={setOverlay} />}
+
+              {type == "file" && <PdfViewer url={body} setOverlay={setOverlay} />}
             </div>
             {data && <CustomTab tabs={tabs} />}
           </Grid>
