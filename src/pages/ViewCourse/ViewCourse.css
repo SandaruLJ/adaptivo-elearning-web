@@ -65,7 +65,46 @@
 .cancel-text:hover {
   text-decoration: underline;
 }
+.question-title{
+  font-size: 20px;
+  font-weight: 700;
+  padding: 20px 0px;
 
+}
+.ask-question{
+color: orange;
+font-size: 20px;
+font-weight: 700;
+padding: 20px 0px;
+
+}
+.ask-question:hover{
+cursor: pointer;
+text-decoration: underline;
+
+
+}
+.all-questions .profile-pic img{
+height: 50px;
+width: 50px;
+
+}
+.all-questions .question{
+  font-size: 20px;
+  font-weight: 700;
+
+}
+.back-questions{
+  font-size: 20px;
+  font-weight: 700;
+  color: gray;
+  padding: 20px 0px;
+  
+}
+.detail-label{
+  font-size: 16px;
+  font-weight: 700;
+}
 /* Button{
   position: absolute; 
   right: 0;

@@ -16,6 +16,7 @@ import { useTracking } from "react-tracking";
 import QuizDisplay from "./QuizDisplay";
 import TopBar from "../../components/TopBar/TopBar";
 import PreferenceDialog from "../../components/Dialog/PreferenceDialog";
+import QandA from "./QandA";
 import moment from "moment";
 import CourseOutline from "./CourseOutline";
 import { useParams } from "react-router-dom";
@@ -44,7 +45,12 @@ const ViewCourse = (props) => {
     const response = await getUserCourseById(id);
     console.log("In view course get data");
     console.log(response);
-    dispatch(courseActions.setSelectedUnit({ section: response.currentUnit.sectionNum, unit: response.currentUnit.unitNum }));
+    dispatch(
+      courseActions.setSelectedUnit({
+        section: response.currentUnit.sectionNum,
+        unit: response.currentUnit.unitNum,
+      })
+    );
 
     dispatch(courseActions.setId(response._id));
     dispatch(courseActions.setProgress(response.progress));
@@ -65,7 +71,7 @@ const ViewCourse = (props) => {
     },
     {
       label: "Q&A",
-      body: <div>Q&A</div>,
+      body: <QandA />,
     },
     {
       label: "Notes",
@@ -89,10 +95,18 @@ const ViewCourse = (props) => {
           <Grid item xs={9} className="view-course-left-container">
             <div className="view-course-main-container">
               {overlay && <CourseOverlay setOverlay={setOverlay} />}
-              {type == "video" && <VideoPlayer src={body} setOverlay={setOverlay} />}
-              {type == "note" && <NoteDisplay note={body} setOverlay={setOverlay} />}
-              {type == "quiz" && <QuizDisplay note={body} setOverlay={setOverlay} />}
-              {type == "file" && <PdfViewer url={body} setOverlay={setOverlay} />}
+              {type == "video" && (
+                <VideoPlayer src={body} setOverlay={setOverlay} />
+              )}
+              {type == "note" && (
+                <NoteDisplay note={body} setOverlay={setOverlay} />
+              )}
+              {type == "quiz" && (
+                <QuizDisplay note={body} setOverlay={setOverlay} />
+              )}
+              {type == "file" && (
+                <PdfViewer url={body} setOverlay={setOverlay} />
+              )}
             </div>
             {data && <CustomTab tabs={tabs} />}
           </Grid>
