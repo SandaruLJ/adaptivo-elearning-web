@@ -102,6 +102,13 @@ const ViewCourse = (props) => {
               {type == "note" && <NoteDisplay note={body} setOverlay={setOverlay} />}
               {type == "quiz" && <QuizDisplay note={body} setOverlay={setOverlay} />}
               {type == "preTest" && <PreTestDisplay note={body} setOverlay={setOverlay} />}
+              {type == "visualNote" && <PdfViewer url={body} setOverlay={setOverlay} />}
+              {type == "mindmap" && <img src={body} className={"mindmap"} />}
+              {type == "textRichFile" && <PdfViewer url={body} setOverlay={setOverlay} />}
+              {type == "realExampleVideo" && <VideoPlayer src={body} setOverlay={setOverlay} />}
+              {type == "realExampleDoc" && <PdfViewer url={body} setOverlay={setOverlay} />}
+              {type == "additionalVideo" && <VideoPlayer src={body} setOverlay={setOverlay} />}
+              {type == "additionalMaterials" && <PdfViewer url={body} setOverlay={setOverlay} />}
 
               {type == "file" && <PdfViewer url={body} setOverlay={setOverlay} />}
             </div>
@@ -113,8 +120,6 @@ const ViewCourse = (props) => {
           </Grid>
         </Grid>
       </div>
-      {/* <PreferenceDialog /> */}
-      <RecommendationDialog />
     </Track>
   );
 };

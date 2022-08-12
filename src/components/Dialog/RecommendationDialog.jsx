@@ -54,22 +54,7 @@ const RecommendationDialog = (props) => {
 
     model.current.handleClickOpen();
 
-    setKnowledgeResults([
-      {
-        conceptId: "62e922deda3def1a6d619957",
-        knowledge: 80,
-        learningObjects: [
-            "62e922deda3def1a6d619951"
-        ]
-      },
-      {
-        conceptId: "62e96fb64b2cdca5b1245ec0",
-        knowledge: 80,
-        learningObjects: [
-            "62e96fb64b2cdca5b1245eba"
-        ]
-      }
-  ]);
+    setKnowledgeResults(props.knowledgeResults);
   }, []);
 
   useEffect(() => {
@@ -97,7 +82,7 @@ const RecommendationDialog = (props) => {
     const adaptedUnits =  previous.concat(recommendations, next);
     
     adaptedCurriculum[selectedUnitPosition.section]["units"] = adaptedUnits;
-    console.log(adaptedCurriculum)
+
     dispatch(courseActions.setCurriculum(adaptedCurriculum));
 
     model.current.handleClose();
@@ -109,12 +94,22 @@ const RecommendationDialog = (props) => {
       section.units.forEach((unit, unitIndex) => {
         let updatedUnit = JSON.parse(JSON.stringify(unit));
         updatedUnit[unit.type] = typeof unit[unit.type] === 'object' ? unit[unit.type]._id : unit[unit.type];
+
+        let updatedQuestions = [];
+        if (unit.quiz && unit.quiz.questions) {
+          unit.quiz.questions.forEach((question) => {
+            updatedQuestions.push(question._id);
+          });
+          updatedUnit.quiz.questions = updatedQuestions;
+        }
+
         updatedSection.units[unitIndex] = updatedUnit;
       });
       updatedCurriculum[sectionIndex] = updatedSection;
     });
 
-    updateCurriculum(course.id, updatedCurriculum);
+    console.log(updatedCurriculum);
+    updateCurriculum(course.id, { learningPath: updatedCurriculum });
   }
   
   useEffect(() => {

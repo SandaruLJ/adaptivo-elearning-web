@@ -59,9 +59,9 @@ export default function Unit(props) {
   };
   useEffect(() => {
     let type = props.unit.type;
-    if (props.unit.isConceptLink) {
-      type = "video";
-    }
+    // if (props.unit.isConceptLink) {
+    //   type = "video";
+    // }
     setType(type);
   }, []);
   const setMain = () => {
@@ -77,6 +77,20 @@ export default function Unit(props) {
       body = props.unit.note;
     } else if (type == "file") {
       body = props.unit.file.url;
+    } else if (type == "visualNote") {
+      body = props.unit.visualNote.url;
+    } else if (type == "mindmap") {
+      body = props.unit.mindmap.url;
+    } else if (type == "textRichFile") {
+      body = props.unit.textRichFile.url;
+    } else if (type == "realExampleVideo") {
+      body = props.unit.realExampleVideo.url;
+    } else if (type == "realExampleDoc") {
+      body = props.unit.realExampleDoc.url;
+    } else if (type == "additionalVideo") {
+      body = props.unit.additionalVideo.url;
+    } else if (type == "additionalMaterials") {
+      body = props.unit.additionalMaterials.url;
     }
 
     dispatch(courseActions.setContent({ type, body, duration }));
@@ -109,7 +123,7 @@ export default function Unit(props) {
               {type == "video" && <PlayCircle className="icon" />}
               {type == "audio" && <Audiotrack className="icon" />}
               {type == "note" && <Description className="icon" />}
-              {type == "quiz" && <Quiz className="icon" />}
+              {(type == "quiz" || type == "preTest") && <Quiz className="icon" />}
             </Grid>
             <Grid item>{props.duration} min</Grid>
           </Grid>

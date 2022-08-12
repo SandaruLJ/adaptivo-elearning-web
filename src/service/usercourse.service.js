@@ -30,6 +30,11 @@ export const markDuration = async (data) => {
 };
 
 export const updateCurriculum = async (id, data) => {
-  const response = await update(url + "/update-curriculum" + id, data);
+  const response = await update(url + "/update-curriculum/" + id, data);
   return response;
 }
+
+export const setQuizScore = async (data) => {
+  const response = await update(url + "/quizscore", data);
+  return response;
+};
