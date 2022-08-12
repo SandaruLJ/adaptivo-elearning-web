@@ -47,7 +47,7 @@ const PreTestDisplay = () => {
       answers: ["<p>I have heard and I know what it is</p>\n", "<p>I have heard but I am not very sure about it</p>\n", "<p>I have never heard</p>\n"],
       correctAnswer: 0,
       lo: "62e94af54b2cdca5b1245d88",
-      question: '<p><span style="color: rgba(0,0,0,0.87);background-color: rgb(255,255,255);font-size: medium;font-family: Poppins, sans-serif;">Have you heard of Newton\'s 1st Law?</span>&nbsp;</p>',
+      question: `<p><span style="color: rgba(0,0,0,0.87);background-color: rgb(255,255,255);font-size: medium;font-family: Poppins, sans-serif;">Have you heard of ${unit.preTest.name}?</span>&nbsp;</p>`,
     };
     setQuiz([firstQuestion]);
   }, []);

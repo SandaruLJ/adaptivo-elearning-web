@@ -66,6 +66,11 @@ const TopBar = (props) => {
           <Grid item>
             <Grid container spacing={1} alignItems="center">
               <Grid item>
+                <Link to="/mycourses" style={{ textDecoration: "none", textAlign: "right" }}>
+                  <h3 className="my-course-txt">My Courses</h3>
+                </Link>
+              </Grid>
+              <Grid item>
                 <Grid container spacing={1} alignItems="center" className="mr-2">
                   <Grid item>
                     <CircularProgressWithIcon value={progress} />

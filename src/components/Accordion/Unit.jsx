@@ -120,9 +120,11 @@ export default function Unit(props) {
         <div className="file-duration-container">
           <Grid container spacing={1} alignItems="center">
             <Grid item>
-              {type == "video" && <PlayCircle className="icon" />}
+              {(type == "video" || type == "realExampleVideo" || type == "additionalVideo") && <PlayCircle className="icon" />}
               {type == "audio" && <Audiotrack className="icon" />}
-              {type == "note" && <Description className="icon" />}
+              {(type == "note" || type == "visualNote" || type == "mindmap" || type == "textRichFile" || type == "realExampleDoc" || type == "additionalMaterials" || type == "file") && (
+                <Description className="icon" />
+              )}
               {(type == "quiz" || type == "preTest") && <Quiz className="icon" />}
             </Grid>
             <Grid item>{props.duration} min</Grid>
