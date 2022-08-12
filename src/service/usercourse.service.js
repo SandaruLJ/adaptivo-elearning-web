@@ -28,3 +28,7 @@ export const markDuration = async (data) => {
   const response = await update(url + "/markduration", data);
   return response;
 };
+export const setQuizScore = async (data) => {
+  const response = await update(url + "/quizscore", data);
+  return response;
+};

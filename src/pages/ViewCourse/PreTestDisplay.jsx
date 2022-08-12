@@ -12,6 +12,7 @@ import Box from "@mui/material/Box";
 import QuizStart from "./QuizStart";
 import { courseActions } from "../../store/course-slice";
 import { getNextQuestion } from "../../service/preTest.service";
+import { setQuizScore } from "../../service/usercourse.service";
 
 const PreTestDisplay = () => {
   const [isStarted, setIsStarted] = useState();
@@ -29,9 +30,11 @@ const PreTestDisplay = () => {
 
   const dispatch = useDispatch();
   const selectedUnit = useSelector((state) => state.course.selectedUnit);
+  const id = useSelector((state) => state.course.id);
+
   const unit = useSelector((state) => state.course.curriculum[selectedUnit.section]["units"][selectedUnit.unit]);
   const [quiz, setQuiz] = useState([]);
-  const [conceptId, setConceptId] = useState(unit.preTest);
+  const [conceptId, setConceptId] = useState(unit.preTest._id);
   const [prevConceptId, setPrevConceptId] = useState("0");
   const [loId, setLOId] = useState("0");
   const [incorrectLoIds, setIncorrectLoIds] = useState([]);
@@ -49,26 +52,23 @@ const PreTestDisplay = () => {
     setQuiz([firstQuestion]);
   }, []);
 
-  const calculateMarks = () => {
+  const calculateMarks = async () => {
     setIsFinished(true);
-    setViewAnswer(false);
-    const correctAnswers = quiz.map((e) => e.correctAnswer);
-    setCorrectAnswers(correctAnswers);
-    const temp = [];
-    let score = 0;
 
-    correctAnswers.map((correctAnswer, index) => {
-      if (correctAnswer == answers[index]) {
-        temp[index] = true;
-        score++;
-      } else {
-        temp[index] = false;
-      }
-    });
-    let percentage = (score / quiz.length) * 100;
-    setScore(score);
+    let qNum = quiz.length - 1;
+    let inCorrect = incorrectLoIds.length;
+    let correct = qNum - inCorrect;
+
+    let percentage = (correct / qNum) * 100;
     setPercentage(percentage);
-    setIsCorrect(temp);
+
+    const response = {
+      _id: id,
+      sectionCount: selectedUnit.section,
+      unitCount: selectedUnit.unit,
+      score: percentage,
+    };
+    await setQuizScore(response);
   };
   const selectAnswer = (e) => {
     let temp = [...answers];
@@ -111,7 +111,8 @@ const PreTestDisplay = () => {
       console.log(request);
       let next_question = await getNextQuestion(request);
       if (next_question.hasOwnProperty("passed")) {
-        setIsFinished(true);
+        // setIsFinished(true);
+        calculateMarks();
       } else {
         setPrevConceptId(next_question.concept);
         setLOId(next_question.lo);
