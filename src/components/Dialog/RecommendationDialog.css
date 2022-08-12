@@ -1,0 +1,22 @@
+.resource-container {
+  margin: 8px;
+  padding: 4px;
+}
+
+.resource-item {
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+}
+
+.item-name {
+  margin-inline-start: 8px;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  margin-top: 24px;
+  margin-bottom: 0;
+}
