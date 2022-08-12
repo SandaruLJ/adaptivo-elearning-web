@@ -7,6 +7,7 @@ import { getAllPreferences } from "../../service/preference.service";
 import CustomButton from "../Button/CustomButton";
 
 import DialogComponent from "./DialogComponent";
+import { Auth } from "aws-amplify";
 
 const PreferenceDialog = (props) => {
   const [value, setValue] = useState();
@@ -14,7 +15,8 @@ const PreferenceDialog = (props) => {
   const [step, setStep] = useState(1);
   const [qNo, setQNo] = useState(0);
   const [answers, setAnswers] = useState(Array(8).fill(4));
-  const user = useSelector((state) => state.auth.user);
+  const [user, setUser] = useState();
+  // const user = useSelector((state) => state.auth.user);
 
   const [data, setData] = useState();
 
@@ -27,6 +29,9 @@ const PreferenceDialog = (props) => {
   useEffect(() => {
     getData();
     console.log(user);
+    Auth.currentAuthenticatedUser().then((data) => {
+      setUser(data.attributes);
+    });
   }, []);
   const handleContinue = () => {
     setStep(step + 1);
@@ -49,7 +54,7 @@ const PreferenceDialog = (props) => {
   const handleFinish = () => {
     model.current.handleClose();
     const request = {
-      userId: user.username,
+      email: user.email,
       answers: answers,
     };
     console.log(request);
@@ -102,7 +107,7 @@ const PreferenceDialog = (props) => {
                   </div>
                 ) : step == 2 ? (
                   <div className="preference-data-container">
-                    <div className="welcome-txt">Hi, John!</div>
+                    <div className="welcome-txt">Hi {user && user.given_name},</div>
                     {/* <div className="quick-tour-start-txt">Let's start with a quick onboarding tour</div> */}
                     <div className="quick-start-caption mt-2">
                       Adaptivo aims to provide a dynamic personalized learning exerience. In order to personalize your expereience we will need to know your preferences. Can you please click
@@ -171,11 +176,11 @@ const PreferenceDialog = (props) => {
               </Grid>
               <Grid item md={5}>
                 {step == 1 ? (
-                  <img src="images/onboarding-1.jpg" className="onboarding-image-1" />
+                  <img src="/images/onboarding-1.jpg" className="onboarding-image-1" />
                 ) : step == 2 ? (
-                  <img src="images/onboarding-2.png" className="onboarding-image-1" />
+                  <img src="/images/onboarding-2.png" className="onboarding-image-1" />
                 ) : (
-                  <img src="images/onboarding-1.jpg" className="onboarding-image-1" />
+                  <img src="/images/onboarding-1.jpg" className="onboarding-image-1" />
                 )}
               </Grid>
             </Grid>

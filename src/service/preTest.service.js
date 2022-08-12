@@ -6,7 +6,3 @@ export const getNextQuestion = async (data) => {
   const nextQuestion = await save(url, data);
   return nextQuestion;
 };
-export const getAllCategory = async () => {
-  const Category = await getAll(url);
-  return Category;
-};

@@ -14,7 +14,7 @@ const CustomButton = (props) => {
         disabled={props.disabled}
         onClick={props.onclick}
         loading={props.loading}
-        loadingPosition="start"
+        loadingPosition="end"
       >
         {props.name}
       </LoadingButton>
