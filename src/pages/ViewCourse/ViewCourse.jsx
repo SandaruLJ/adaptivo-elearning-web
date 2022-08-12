@@ -23,6 +23,7 @@ import { useParams } from "react-router-dom";
 import { getUserCourseById } from "../../service/usercourse.service";
 import PdfViewer from "../../components/PdfViewer/PdfViewer";
 import PreTestDisplay from "./PreTestDisplay";
+import RecommendationDialog from '../../components/Dialog/RecommendationDialog';
 
 const ViewCourse = (props) => {
   const [data, setData] = useState();
@@ -30,6 +31,7 @@ const ViewCourse = (props) => {
   const dispatch = useDispatch();
   const type = useSelector((state) => state.course.contentType);
   const body = useSelector((state) => state.course.contentBody);
+  const curriculum = useSelector((state) => state.course.curriculum);
   const { Track, trackEvent } = useTracking({ page: "ViewCourse" });
   const { id } = useParams();
 
@@ -114,7 +116,7 @@ const ViewCourse = (props) => {
           </Grid>
           <Grid item xs={3} className="course-content">
             <div className="course-content-title">Course Content</div>
-            {data && <CustomAccordion curriculum={data.learningPath} />}
+            {data && <CustomAccordion curriculum={curriculum} />}
           </Grid>
         </Grid>
       </div>
