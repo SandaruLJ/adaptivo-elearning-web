@@ -11,6 +11,7 @@ import "./QuizDisplay.css";
 import Box from "@mui/material/Box";
 import QuizStart from "./QuizStart";
 import { courseActions } from "../../store/course-slice";
+import { setQuizScore } from "../../service/usercourse.service";
 
 const QuizDisplay = () => {
   const [isStarted, setIsStarted] = useState();
@@ -29,6 +30,7 @@ const QuizDisplay = () => {
   const selectedUnit = useSelector((state) => state.course.selectedUnit);
   const unit = useSelector((state) => state.course.curriculum[selectedUnit.section]["units"][selectedUnit.unit]);
   const quiz = unit.quiz.questions;
+  const id = useSelector((state) => state.course.id);
 
   useEffect(() => {
     if (answers.length == 0) {
@@ -36,7 +38,7 @@ const QuizDisplay = () => {
     }
   }, []);
 
-  const calculateMarks = () => {
+  const calculateMarks = async () => {
     setIsFinished(true);
     setViewAnswer(false);
     const correctAnswers = quiz.map((e) => e.correctAnswer);
@@ -56,6 +58,14 @@ const QuizDisplay = () => {
     setScore(score);
     setPercentage(percentage);
     setIsCorrect(temp);
+
+    const response = {
+      _id: id,
+      sectionCount: selectedUnit.section,
+      unitCount: selectedUnit.unit,
+      score: percentage,
+    };
+    await setQuizScore(response);
   };
   const selectAnswer = (e) => {
     let temp = [...answers];

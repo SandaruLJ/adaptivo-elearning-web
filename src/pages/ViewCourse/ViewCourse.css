@@ -65,43 +65,36 @@
 .cancel-text:hover {
   text-decoration: underline;
 }
-.question-title{
+.question-title {
   font-size: 20px;
   font-weight: 700;
   padding: 20px 0px;
-
 }
-.ask-question{
-color: orange;
-font-size: 20px;
-font-weight: 700;
-padding: 20px 0px;
-
-}
-.ask-question:hover{
-cursor: pointer;
-text-decoration: underline;
-
-
-}
-.all-questions .profile-pic img{
-height: 50px;
-width: 50px;
-
-}
-.all-questions .question{
+.ask-question {
+  color: orange;
   font-size: 20px;
   font-weight: 700;
-
+  padding: 20px 0px;
 }
-.back-questions{
+.ask-question:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.all-questions .profile-pic img {
+  height: 50px;
+  width: 50px;
+}
+.all-questions .question {
+  font-size: 20px;
+  font-weight: 700;
+}
+.back-questions {
   font-size: 20px;
   font-weight: 700;
   color: gray;
   padding: 20px 0px;
-  
 }
-.detail-label{
+.detail-label {
   font-size: 16px;
   font-weight: 700;
 }
@@ -220,4 +213,10 @@ width: 50px;
   text-decoration: underline;
   padding-bottom: 10px;
   font-size: 20px;
+}
+.mindmap {
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }

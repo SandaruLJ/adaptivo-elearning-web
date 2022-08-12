@@ -10,12 +10,10 @@ import { PlayCircle } from "@mui/icons-material";
 import Section from "./Section";
 
 export default function CustomAccordion(props) {
-
-  
   return (
     <div className="accordion">
       {props.curriculum.map((section, index) => {
-        return <Section title={section.name} key={index} sectionNum={index + 1} viewedUnits={3} totalUnits={section.units.length} sectionDuration={"6 min"} units={section.units} />;
+        return <Section title={section.name} key={index} sectionNum={index + 1} viewedUnits={3} totalUnits={section.units.length} sectionDuration={"15 min"} units={section.units} />;
       })}
       {/* <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
