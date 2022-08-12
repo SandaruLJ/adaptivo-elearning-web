@@ -11,14 +11,16 @@ import "./QuizDisplay.css";
 import Box from "@mui/material/Box";
 import QuizStart from "./QuizStart";
 import { courseActions } from "../../store/course-slice";
+import { getNextQuestion } from "../../service/preTest.service";
 
 const PreTestDisplay = () => {
   const [isStarted, setIsStarted] = useState();
   const [isFinished, setIsFinished] = useState();
   const [viewAnswers, setViewAnswer] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [questionNum, setQuestionNum] = useState(0);
-  const [answers, setAnswers] = useState(["0", "0"]);
+  const [answers, setAnswers] = useState(["0"]);
   const [score, setScore] = useState(0);
   const [percentage, setPercentage] = useState();
   const [isCorrect, setIsCorrect] = useState([]);
@@ -28,12 +30,23 @@ const PreTestDisplay = () => {
   const dispatch = useDispatch();
   const selectedUnit = useSelector((state) => state.course.selectedUnit);
   const unit = useSelector((state) => state.course.curriculum[selectedUnit.section]["units"][selectedUnit.unit]);
-  const quiz = unit.quiz.questions;
+  const [quiz, setQuiz] = useState([]);
+  const [conceptId, setConceptId] = useState(unit.preTest);
+  const [prevConceptId, setPrevConceptId] = useState("0");
+  const [loId, setLOId] = useState("0");
+  const [incorrectLoIds, setIncorrectLoIds] = useState([]);
 
   useEffect(() => {
     if (answers.length == 0) {
-      setAnswers(answers.fill("-1", 0, quiz.length));
+      setAnswers(answers.fill("-1", 0, 10));
     }
+    const firstQuestion = {
+      answers: ["<p>I have heard and I know what it is</p>\n", "<p>I have heard but I am not very sure about it</p>\n", "<p>I have never heard</p>\n"],
+      correctAnswer: 0,
+      lo: "62e94af54b2cdca5b1245d88",
+      question: '<p><span style="color: rgba(0,0,0,0.87);background-color: rgb(255,255,255);font-size: medium;font-family: Poppins, sans-serif;">Have you heard of Newton\'s 1st Law?</span>&nbsp;</p>',
+    };
+    setQuiz([firstQuestion]);
   }, []);
 
   const calculateMarks = () => {
@@ -63,18 +76,56 @@ const PreTestDisplay = () => {
     setAnswers(temp);
   };
 
-  const checkAnswer = () => {};
+  const checkAnswer = () => {
+    if (quiz[questionNum].correctAnswer == answers[questionNum]) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
-  const nextQuestion = () => {
-    let conceptId = unit.preTest;
-    if (questionNum < quiz.length - 1) {
-      setViewExplanation(false);
+  const nextQuestion = async () => {
+    let isAnswerCorrect = checkAnswer();
+
+    if (questionNum != 0) {
+      if (!isAnswerCorrect) {
+        let temp = [...incorrectLoIds, quiz[questionNum].lo];
+        setIncorrectLoIds([...incorrectLoIds, quiz[questionNum].lo]);
+      } else {
+        if (incorrectLoIds.includes(quiz[questionNum].lo)) {
+          let temp = incorrectLoIds;
+          let filteredArray = temp.filter((loId) => loId != quiz[questionNum].lo);
+          setIncorrectLoIds([...filteredArray]);
+        }
+      }
+    }
+
+    if (questionNum == quiz.length - 1) {
+      setIsLoading(true);
+      const request = {
+        target: unit.preTest,
+        prevConcept: prevConceptId,
+        prevLearningObject: loId,
+        answerCorrect: isAnswerCorrect,
+      };
+      console.log(request);
+      let next_question = await getNextQuestion(request);
+      if (next_question.hasOwnProperty("passed")) {
+        setIsFinished(true);
+      } else {
+        setPrevConceptId(next_question.concept);
+        setLOId(next_question.lo);
+        setQuiz([...quiz, next_question]);
+        setQuestionNum(questionNum + 1);
+        setIsLoading(false);
+      }
+      console.log(next_question);
+    } else {
       setQuestionNum(questionNum + 1);
     }
   };
   const previousQuestion = () => {
     if (questionNum != 0) {
-      setViewExplanation(false);
       setQuestionNum(questionNum - 1);
     }
   };
@@ -135,58 +186,19 @@ const PreTestDisplay = () => {
             <Grid container justifyContent="flex-end" spacing={2} className="mt-2">
               <Grid item>{questionNum != 0 && <CustomButton name="Previous" color="grey" type="cancel" onclick={previousQuestion} />}</Grid>
               <Grid item>
-                {questionNum == quiz.length - 1 ? (
-                  <CustomButton name="Finish" color="orange" type="submit" onclick={nextQuestion} />
-                ) : (
-                  <CustomButton name="Next" color="orange" type="submit" onclick={nextQuestion} />
-                )}
+                <CustomButton name="Next" loading={isLoading} color="orange next-btn" type="submit" onclick={nextQuestion} />
               </Grid>
             </Grid>
           </div>
         </div>
       ) : isFinished & !viewAnswers ? (
         <div>
-          <div
-            className={`finish-score-container
-            ${percentage > 75 ? "great" : percentage > 50 ? "good" : percentage > 35 ? "average" : "poor"}
-            `}
-          >
-            <h2>{percentage > 75 ? "Great Job!" : percentage > 50 ? "Good Job!" : percentage > 35 ? "Average Score!" : "Poor Score!"}</h2>
-            <h3>
-              You've got {score} out of {quiz.length} correct
-            </h3>
+          <div className={`finish-score-container great`}>
+            <h2>Good Job!</h2>
+            <h3>Thank you for completing the quiz! We are analyzing your knowledge. Please wait until the analysis is completed.</h3>
           </div>
           <div className="finish-quiz-body">
-            <Grid container spacing={2}>
-              <Grid item>
-                <Check />
-              </Grid>
-              <Grid item>
-                <h3>
-                  <strong>What you know - </strong>
-                </h3>
-                <ul>
-                  <li>Newton's 1st Law</li>
-                  <li>Newton's 2nd Law</li>
-                </ul>
-              </Grid>
-            </Grid>
-
-            <Grid container spacing={2} className="mt-3">
-              <Grid item>
-                <Close />
-              </Grid>
-              <Grid item>
-                <h3>
-                  <strong>What you need to improve - </strong>
-                </h3>
-                <ul>
-                  <li>Newton's 1st Law</li>
-                  <li>Newton's 2nd Law</li>
-                </ul>
-              </Grid>
-            </Grid>
-            <div className="quiz-action-btns">
+            {/* <div className="quiz-action-btns">
               <Grid container justifyContent="flex-end" spacing={2} className="mt-2">
                 <Grid item>
                   <CustomButton
@@ -199,7 +211,7 @@ const PreTestDisplay = () => {
                     }}
                   />
                 </Grid>
-                <Grid item>
+              <Grid item>
                   {score == quiz.length ? (
                     <CustomButton name="Go to Next Section" color="orange" type="submit" onclick={nextSection} />
                   ) : (
@@ -207,91 +219,11 @@ const PreTestDisplay = () => {
                   )}
                 </Grid>
               </Grid>
-            </div>
+            </div> */}
           </div>
         </div>
       ) : (
-        <div>
-          <div>
-            <h3 className={`quiz-question ${isCorrect[questionNum] ? "correct" : "wrong"}`}>
-              {questionNum + 1}. <Interweave content={quiz[questionNum].question} />
-            </h3>
-
-            <div className="answers-container mt-2">
-              <RadioGroup name={`quiz-answers`} value={answers[questionNum]} onChange={selectAnswer}>
-                {quiz[questionNum].answers.map((answer, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className={!isCorrect[questionNum] && index == answers[questionNum] ? `wrong-answer-container` : index == correctAnswers[questionNum] ? "correct-answer-container" : ""}
-                    >
-                      <Grid container alignItems="flex-end">
-                        <Grid item>
-                          <FormControlLabel value={index} control={<Radio />} label={<Interweave content={answer} />} />
-                        </Grid>
-                        <Grid item>{!isCorrect[questionNum] && index == answers[questionNum] ? <Close /> : index == correctAnswers[questionNum] ? <Check /> : ""}</Grid>
-                      </Grid>
-                    </div>
-                  );
-                })}
-              </RadioGroup>
-            </div>
-            {isCorrect[questionNum] ? (
-              <div className="explanation-container-correct">
-                <h3>Great, You've got this right!</h3>
-                <div className="mt-2">
-                  <CustomButton
-                    name="View Explanation"
-                    color="light-green-bordered fit-content"
-                    type="submit"
-                    onclick={() => {
-                      setViewExplanation(true);
-                    }}
-                  />
-                </div>
-                {viewExplanation && (
-                  <div className="mt-2">
-                    <h4 className="explanation-txt">Explanation</h4>
-                    <Interweave content={quiz[questionNum].explanation} />
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="explanation-container-wrong">
-                <h3>Sorry, You didn't get this right!</h3>
-                <div className="mt-2">
-                  <CustomButton
-                    name="View Explanation"
-                    color="light-red-bordered fit-content"
-                    type="submit"
-                    onclick={() => {
-                      setViewExplanation(true);
-                    }}
-                  />
-                </div>
-                {viewExplanation && (
-                  <div className="mt-2">
-                    <h4 className="explanation-txt">Explanation</h4>
-                    <Interweave content={quiz[questionNum].explanation} />
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          <div className="quiz-action-btns">
-            <Grid container justifyContent="flex-end" spacing={2} className="mt-2">
-              <Grid item>{questionNum != 0 && <CustomButton name="Previous" color="grey" type="cancel" onclick={previousQuestion} />}</Grid>
-              <Grid item>
-                {questionNum == quiz.length - 1 ? (
-                  <CustomButton name="Finish" color="orange" type="submit" onclick={calculateMarks} />
-                ) : (
-                  <CustomButton name="Next" color="orange" type="submit" onclick={nextQuestion} />
-                )}
-              </Grid>
-            </Grid>
-          </div>
-        </div>
+        ""
       )}
     </div>
   );

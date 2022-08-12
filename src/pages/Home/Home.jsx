@@ -10,11 +10,26 @@ import Header from "../../components/Header/Header";
 import SubBanner from "../../components/SubBanner/SubBanner";
 import Testimonials from "../../components/Testimonials/Testimonials";
 import "./Home.css";
+import PreferenceDialog from "../../components/Dialog/PreferenceDialog";
+import { getLearningStylesByUser } from "../../service/learningStyles.service";
+import { useState } from "react";
+import { Auth } from "aws-amplify";
 
 const Home = () => {
   const { trackEvent } = useTracking({ page: "home" });
+  const [displayPreference, setDisplayPreference] = useState(false);
 
-  useEffect(() => {
+  useEffect(async () => {
+    Auth.currentAuthenticatedUser()
+      .then(async (data) => {
+        const learningStyle = await getLearningStylesByUser(data.attributes.email);
+        if (learningStyle.hasOwnProperty("msg")) {
+          setDisplayPreference(true);
+        }
+      })
+      .catch(() => {
+        setDisplayPreference(false);
+      });
     trackEvent({
       action: "page_visit_home",
       time: moment().format("DD-MM-YYYY hh:mm:ss"),
@@ -108,6 +123,7 @@ const Home = () => {
       <div className="footer-section">
         <Footer />
       </div>
+      {displayPreference && <PreferenceDialog />}
     </div>
   );
 };

@@ -53,7 +53,7 @@ const TopBar = (props) => {
                 {/* <Link to="/" className="logo">
                   adaptivo
                 </Link> */}
-                <img src="images/adaptivo.png" className="logo-img" />
+                <img src="/images/adaptivo.png" className="logo-img" />
               </Grid>
               <Grid item>
                 <div>

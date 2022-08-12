@@ -14,6 +14,9 @@
 .orange.MuiButton-root:hover {
   background: #ff9e43;
 }
+.next-btn.MuiButton-root {
+  width: 120px !important;
+}
 .grey.MuiButton-root {
   background: #e7e7e7;
   color: #474747;
