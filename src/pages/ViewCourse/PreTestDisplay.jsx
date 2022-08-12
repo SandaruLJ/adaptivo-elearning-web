@@ -13,6 +13,7 @@ import QuizStart from "./QuizStart";
 import { courseActions } from "../../store/course-slice";
 import { getNextQuestion } from "../../service/preTest.service";
 import { setQuizScore } from "../../service/usercourse.service";
+import RecommendationDialog from "../../components/Dialog/RecommendationDialog";
 
 const PreTestDisplay = () => {
   const [isStarted, setIsStarted] = useState();
@@ -226,6 +227,7 @@ const PreTestDisplay = () => {
       ) : (
         ""
       )}
+      {isFinished && <RecommendationDialog knowledgeResults={incorrectLoIds} />}
     </div>
   );
 };

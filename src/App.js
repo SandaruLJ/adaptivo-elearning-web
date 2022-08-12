@@ -15,6 +15,10 @@ export const App = () => {
   // const user = useSelector((state) => state.auth.user);
   const [user, setUser] = useState();
   useEffect(() => {
+    if (!Auth.currentAuthenticatedUser()) {
+      return null;
+    }
+    
     Auth.currentAuthenticatedUser().then((data) => {
       setUser(data);
     });
