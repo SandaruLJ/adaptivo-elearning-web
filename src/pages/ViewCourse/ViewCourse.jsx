@@ -15,7 +15,7 @@ import Overview from "./Overview";
 import { useTracking } from "react-tracking";
 import QuizDisplay from "./QuizDisplay";
 import TopBar from "../../components/TopBar/TopBar";
-import PreferenceDialog from "../../components/Dialog/PreferenceDialog";
+
 import QandA from "./QandA";
 import moment from "moment";
 import CourseOutline from "./CourseOutline";
@@ -111,7 +111,6 @@ const ViewCourse = (props) => {
           </Grid>
         </Grid>
       </div>
-      <PreferenceDialog />
     </Track>
   );
 };

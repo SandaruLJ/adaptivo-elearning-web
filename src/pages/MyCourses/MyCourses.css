@@ -79,3 +79,7 @@
   right: 0;
   top: 10px;
 }
+.loading {
+  text-align: center;
+  padding: 50px;
+}

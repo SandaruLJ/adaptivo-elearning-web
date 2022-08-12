@@ -1,5 +1,5 @@
 import { ArrowBackIos, ArrowForwardIos, Star } from "@mui/icons-material";
-import { Grid } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -14,13 +14,14 @@ import { Auth } from "aws-amplify";
 
 const MyCourses = () => {
   const { Track, trackEvent } = useTracking({ page: "myCourses" });
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getData = async (email) => {
     //Fetches the data from the db
     // const response = await getAllCoursesByUserId("62272fbfc8ea4d8b75b76aa2");
     const response = await getAllCoursesByUserId(email);
-
+    setIsLoading(false);
     setData(response);
   };
 
@@ -75,6 +76,18 @@ const MyCourses = () => {
             </div>
           </div>
         </div>
+
+        {isLoading && (
+          <div className="loading">
+            <CircularProgress />
+          </div>
+        )}
+        {!isLoading && data.length == 0 && (
+          <div className="loading">
+            <h3>You haven't enrolled into any courses</h3>
+          </div>
+        )}
+
         {data && data.map((course) => <SingleMyCourse id={course._id} name={course.courseId.title} thumbnail={course.courseId.thumbnail.url} instructor={"Dr.Angela Yu"} progress={course.progress} />)}
       </div>
     </div>

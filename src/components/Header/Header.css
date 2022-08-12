@@ -45,3 +45,6 @@
 .firstname:hover {
   text-decoration: underline;
 }
+.header a {
+  text-decoration: none;
+}
