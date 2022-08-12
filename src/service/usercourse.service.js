@@ -28,3 +28,8 @@ export const markDuration = async (data) => {
   const response = await update(url + "/markduration", data);
   return response;
 };
+
+export const updateCurriculum = async (id, data) => {
+  const response = await update(url + "/update-curriculum" + id, data);
+  return response;
+}

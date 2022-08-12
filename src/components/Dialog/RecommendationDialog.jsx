@@ -1,13 +1,16 @@
 import { Card, DialogActions, DialogContentText, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import { Auth } from "aws-amplify";
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllPreferences } from "../../service/preference.service";
 import CustomButton from "../Button/CustomButton";
 import DialogComponent from "./DialogComponent";
-import { Description, Videocam, VolumeUp } from "@mui/icons-material";
+import { Description, Quiz, Videocam, VolumeUp } from "@mui/icons-material";
 import "./RecommendationDialog.css";
 import { getRecommendations } from "../../service/recommendation";
 import { MagicSpinner } from "react-spinners-kit";
+import { courseActions } from "../../store/course-slice";
+import { updateCurriculum } from "../../service/usercourse.service";
 
 
 const RecommendationDialog = (props) => {
@@ -17,8 +20,9 @@ const RecommendationDialog = (props) => {
   const [loading, setLoading] = useState(true);
 
   const [firstname, setFirstname] = useState();
+  const [email, setEmail] = useState();
 
-  const [knowledgeResults, setKnowledgeResults] = useState();
+  const [knowledgeResults, setKnowledgeResults] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
 
   const [step, setStep] = useState(1);
@@ -26,49 +30,53 @@ const RecommendationDialog = (props) => {
 
   const [data, setData] = useState();
 
+  const dispatch = useDispatch();
+
+  const course = useSelector((state) => state.course);
+  const curriculum = useSelector((state) => state.course.curriculum);
+  const selectedUnitPosition = useSelector((state) => state.course.selectedUnit);
+
   const getData = async () => {
     setLoading(true)
-    getRecommendations('1', knowledgeResults).then(data => {
-      setRecommendations(data);
-      setTimeout(() => setLoading(false), 5000);
-    });  // TODO: Make userId dynamic
+    getRecommendations(email, knowledgeResults).then(data => {
+      if (data && data['units']) {
+        setRecommendations(data.units);
+        setLoading(false);
+      }
+    });
   };
 
   useEffect(() => {
     Auth.currentAuthenticatedUser().then(data => {
       setFirstname(data.attributes.given_name);
+      setEmail(data.attributes.email);
     });
 
     model.current.handleClickOpen();
 
-    setKnowledgeResults({
-      courseId: "1",
-      lesson: "1",
-      unit: "1",
-      concepts: [
-        {
-          conceptId: "2",
-          knowledge: 80,
-          learningObjects: [
-            "6",
-            "7"
-          ]
-        },
-        {
-          conceptId: "3",
-          knowledge: 80,
-          learningObjects: [
-            "8",
-            "9"
-          ]
-        }
-      ]
-    });
+    setKnowledgeResults([
+      {
+        conceptId: "62e922deda3def1a6d619957",
+        knowledge: 80,
+        learningObjects: [
+            "62e922deda3def1a6d619951"
+        ]
+      },
+      {
+        conceptId: "62e96fb64b2cdca5b1245ec0",
+        knowledge: 80,
+        learningObjects: [
+            "62e96fb64b2cdca5b1245eba"
+        ]
+      }
+  ]);
   }, []);
 
   useEffect(() => {
-    getData();
-  }, [knowledgeResults]);
+    if (knowledgeResults.length !== 0 && email) {
+      getData();
+    }
+  }, [knowledgeResults, email]);
 
   const handleContinue = () => {
     setStep(step + 1);
@@ -77,6 +85,37 @@ const RecommendationDialog = (props) => {
   const handleClose = () => {
     model.current.handleClose();
   };
+
+  const handleAddRecommendations = () => {
+    let adaptedCurriculum = JSON.parse(JSON.stringify(curriculum));
+    
+    let units = curriculum[selectedUnitPosition.section]["units"];
+    
+    let previous = units.slice(0, selectedUnitPosition.unit + 1);
+    let next = units.slice(selectedUnitPosition.unit + 1);
+
+    const adaptedUnits =  previous.concat(recommendations, next);
+    
+    adaptedCurriculum[selectedUnitPosition.section]["units"] = adaptedUnits;
+    console.log(adaptedCurriculum)
+    dispatch(courseActions.setCurriculum(adaptedCurriculum));
+
+    model.current.handleClose();
+
+    let updatedCurriculum = [];
+
+    adaptedCurriculum.forEach((section, sectionIndex) => {
+      let updatedSection = JSON.parse(JSON.stringify(section));
+      section.units.forEach((unit, unitIndex) => {
+        let updatedUnit = JSON.parse(JSON.stringify(unit));
+        updatedUnit[unit.type] = typeof unit[unit.type] === 'object' ? unit[unit.type]._id : unit[unit.type];
+        updatedSection.units[unitIndex] = updatedUnit;
+      });
+      updatedCurriculum[sectionIndex] = updatedSection;
+    });
+
+    updateCurriculum(course.id, updatedCurriculum);
+  }
   
   useEffect(() => {
   }, []);
@@ -93,7 +132,7 @@ const RecommendationDialog = (props) => {
 
       <DialogComponent
         ref={model}
-        title={loading ? "Loading Recommendations..." : "Fresh Recommendations!"}
+        title={loading ? "Loading Recommendations..." : "New Recommendations!"}
         body={
           step == 1 ? (
             <div>
@@ -134,9 +173,8 @@ const RecommendationDialog = (props) => {
                   <Card variant="outlined" className="resource-container">
                     <div className="resource-item">
                       {
-                        recommendation.type === 'video' ? <Videocam /> :
-                        recommendation.type === 'audio' ? <VolumeUp /> :
-                        recommendation.type === 'text' ? <Description /> : ''
+                        recommendation.type === 'video' || recommendation.type === 'additionalVideo' || recommendation.type === 'realExampleVideo' ? <Videocam /> :
+                        recommendation.type === 'quiz' ? <Quiz /> : <Description />
                       }
                       <span className="item-name">{recommendation.name}</span>
                     </div>
@@ -144,7 +182,7 @@ const RecommendationDialog = (props) => {
                 ))}
 
                 <DialogActions className="mt-2">                  
-                    <CustomButton onclick={handleClose} color="orange fit-content" name={"Add Recommendations"}></CustomButton>
+                    <CustomButton onclick={handleAddRecommendations} color="orange fit-content" name={"Add Recommendations"}></CustomButton>
                     <CustomButton onclick={handleClose} color="grey fit-content" name={"Cancel"}></CustomButton>
                 </DialogActions>
               </div>
