@@ -1,11 +1,10 @@
-import { Card, DialogActions, DialogContentText, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { Card, DialogActions } from "@mui/material";
 import { Auth } from "aws-amplify";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPreferences } from "../../service/preference.service";
 import CustomButton from "../Button/CustomButton";
 import DialogComponent from "./DialogComponent";
-import { Description, Quiz, Videocam, VolumeUp } from "@mui/icons-material";
+import { Description, Quiz, Videocam } from "@mui/icons-material";
 import "./RecommendationDialog.css";
 import { getRecommendations } from "../../service/recommendation";
 import { MagicSpinner } from "react-spinners-kit";
@@ -14,7 +13,6 @@ import { updateCurriculum } from "../../service/usercourse.service";
 
 
 const RecommendationDialog = (props) => {
-  const [value, setValue] = useState();
   const model = useRef();
 
   const [loading, setLoading] = useState(true);
@@ -26,9 +24,8 @@ const RecommendationDialog = (props) => {
   const [recommendations, setRecommendations] = useState([]);
 
   const [step, setStep] = useState(1);
-  const [qNo, setQNo] = useState(0);
 
-  const [data, setData] = useState();
+  const [firstOneWrong, setFirstOneWrong] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -54,12 +51,24 @@ const RecommendationDialog = (props) => {
 
     model.current.handleClickOpen();
 
+    if (props.knowledgeResults.length !== 0) {
+      if (props.knowledgeResults.length === 1) {
+        setFirstOneWrong(true);
+      }
+      props.knowledgeResults.shift();
+    }
+
     setKnowledgeResults(props.knowledgeResults);
   }, []);
 
   useEffect(() => {
     if (knowledgeResults.length !== 0 && email) {
       getData();
+    }
+
+    if (knowledgeResults.length === 0) {
+      setLoading(true)
+      setTimeout(() => setLoading(false), 2000);
     }
   }, [knowledgeResults, email]);
 
@@ -127,7 +136,7 @@ const RecommendationDialog = (props) => {
 
       <DialogComponent
         ref={model}
-        title={loading ? "Loading Recommendations..." : "New Recommendations!"}
+        title={loading ? "Loading Recommendations..." : "Recommendations"}
         body={
           step == 1 ? (
             <div>
@@ -147,12 +156,32 @@ const RecommendationDialog = (props) => {
                 :
                 <div>
                   <div className="mt-1">
-                    We've found some resources that could help you get through this lesson. We suggest you go through them before continuing this lesson.
-                    Click <strong>CONTINUE</strong> to view the recommendations.
+                    {recommendations.length !== 0 ?
+                      <div>
+                        We've found some resources that could help you get through this lesson. We suggest you go through them before continuing this lesson.
+                        Click <strong>CONTINUE</strong> to view the recommendations.
+                      </div>
+                      : firstOneWrong ?
+                      <div>
+                        Your knowledge is sufficient to continue learning "{course.curriculum[selectedUnitPosition.section].name}". Click <strong>CONTINUE</strong> to keep learning.
+                      </div>
+                      :
+                      <div>
+                        You have sufficient knowledge on "{course.curriculum[selectedUnitPosition.section].name}"! You can <strong>SKIP</strong> to the next section, or continue learning.
+                      </div>
+                    }
                   </div>
                   <DialogActions className="mt-2">
-                    <CustomButton onclick={handleContinue} color="orange fit-content" name={"Continue"}></CustomButton>
-                    <CustomButton onclick={handleClose} color="grey fit-content" name={"Skip"}></CustomButton>
+                    {recommendations.length !== 0 ?
+                      <>
+                        <CustomButton onclick={handleContinue} color="orange fit-content" name={"Continue"}></CustomButton>
+                        <CustomButton onclick={handleClose} color="grey fit-content" name={"Skip"}></CustomButton>
+                      </>
+                      : firstOneWrong ?
+                      <CustomButton onclick={handleClose} color="orange fit-content" name={"Continue"}></CustomButton>
+                      :
+                      <CustomButton onclick={handleClose} color="orange fit-content" name={"Got It"}></CustomButton>
+                    }
                   </DialogActions>
                 </div>
               }
