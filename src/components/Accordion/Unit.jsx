@@ -113,7 +113,7 @@ export default function Unit(props) {
       <Grid item>
         <Checkbox color="primary" lavel="checkbox" checked={checked} onChange={handleChecked} />
       </Grid>
-      <Grid item>
+      <Grid item style={{ width: "80%" }}>
         <div className="lecture-name">
           {props.unitNum}. {props.title}
         </div>

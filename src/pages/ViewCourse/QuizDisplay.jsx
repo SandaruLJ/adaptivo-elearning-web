@@ -44,26 +44,30 @@ const QuizDisplay = () => {
     const correctAnswers = quiz.map((e) => e.correctAnswer);
     setCorrectAnswers(correctAnswers);
     const temp = [];
+    const analysis = {};
     let score = 0;
 
     correctAnswers.map((correctAnswer, index) => {
       if (correctAnswer == answers[index]) {
         temp[index] = true;
+        analysis[index] = true;
         score++;
       } else {
         temp[index] = false;
+        analysis[index] = false;
       }
     });
     let percentage = (score / quiz.length) * 100;
     setScore(score);
     setPercentage(percentage);
     setIsCorrect(temp);
-
+    console.log(analysis);
     const response = {
       _id: id,
       sectionCount: selectedUnit.section,
       unitCount: selectedUnit.unit,
       score: percentage,
+      analysis: analysis,
     };
     await setQuizScore(response);
   };
@@ -209,7 +213,7 @@ const QuizDisplay = () => {
                   />
                 </Grid>
                 <Grid item>
-                <CustomButton name="Go to Next Section" color="orange" type="submit" onclick={nextSection} />
+                  <CustomButton name="Go to Next Section" color="orange" type="submit" onclick={nextSection} />
 
                   {/* {score == quiz.length ? (
                     <CustomButton name="Go to Next Section" color="orange" type="submit" onclick={nextSection} />
