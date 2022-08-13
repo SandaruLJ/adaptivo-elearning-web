@@ -109,7 +109,7 @@ const QuizDisplay = () => {
       {!isStarted ? (
         <div className="start-quiz-container">
           <h2>
-            <strong>Quiz: {unit.name}</strong>
+            <strong>{unit.name}</strong>
           </h2>
           <div className="caption">
             {quiz.length} {quiz.length == 1 ? "question" : "questions"}
