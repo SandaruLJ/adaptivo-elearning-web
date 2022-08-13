@@ -44,26 +44,30 @@ const QuizDisplay = () => {
     const correctAnswers = quiz.map((e) => e.correctAnswer);
     setCorrectAnswers(correctAnswers);
     const temp = [];
+    const analysis = {};
     let score = 0;
 
     correctAnswers.map((correctAnswer, index) => {
       if (correctAnswer == answers[index]) {
         temp[index] = true;
+        analysis[index] = true;
         score++;
       } else {
         temp[index] = false;
+        analysis[index] = false;
       }
     });
     let percentage = (score / quiz.length) * 100;
     setScore(score);
     setPercentage(percentage);
     setIsCorrect(temp);
-
+    console.log(analysis);
     const response = {
       _id: id,
       sectionCount: selectedUnit.section,
       unitCount: selectedUnit.unit,
       score: percentage,
+      analysis: analysis,
     };
     await setQuizScore(response);
   };
@@ -166,7 +170,7 @@ const QuizDisplay = () => {
             </h3>
           </div>
           <div className="finish-quiz-body">
-            <Grid container spacing={2}>
+            {/* <Grid container spacing={2}>
               <Grid item>
                 <Check />
               </Grid>
@@ -194,7 +198,7 @@ const QuizDisplay = () => {
                   <li>Newton's 2nd Law</li>
                 </ul>
               </Grid>
-            </Grid>
+            </Grid> */}
             <div className="quiz-action-btns">
               <Grid container justifyContent="flex-end" spacing={2} className="mt-2">
                 <Grid item>
@@ -209,11 +213,13 @@ const QuizDisplay = () => {
                   />
                 </Grid>
                 <Grid item>
-                  {score == quiz.length ? (
+                  <CustomButton name="Go to Next Section" color="orange" type="submit" onclick={nextSection} />
+
+                  {/* {score == quiz.length ? (
                     <CustomButton name="Go to Next Section" color="orange" type="submit" onclick={nextSection} />
                   ) : (
                     <CustomButton name="Retry Quiz" color="orange" type="submit" onclick={retryQuiz} />
-                  )}
+                  )} */}
                 </Grid>
               </Grid>
             </div>

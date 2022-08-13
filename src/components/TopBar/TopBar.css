@@ -91,3 +91,10 @@
   padding-right: 30px;
   border-right: 2px solid #e5e5e5;
 }
+.topBar .my-course-txt {
+  color: black;
+  font-family: sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  padding-right: 15px;
+}

@@ -82,7 +82,7 @@ const MyCourses = () => {
             <CircularProgress />
           </div>
         )}
-        {!isLoading && data.length == 0 && (
+        {!isLoading && data && data.length == 0 && (
           <div className="loading">
             <h3>You haven't enrolled into any courses</h3>
           </div>
