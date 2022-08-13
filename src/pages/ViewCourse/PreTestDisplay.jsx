@@ -104,7 +104,7 @@ const PreTestDisplay = () => {
     if (questionNum == quiz.length - 1) {
       setIsLoading(true);
       const request = {
-        target: unit.preTest,
+        target: unit.preTest._id,
         prevConcept: prevConceptId,
         prevLearningObject: loId,
         answerCorrect: isAnswerCorrect,
