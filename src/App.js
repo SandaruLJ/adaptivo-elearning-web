@@ -18,14 +18,14 @@ export const App = () => {
     if (!Auth.currentAuthenticatedUser()) {
       return null;
     }
-    
+
     Auth.currentAuthenticatedUser().then((data) => {
       setUser(data);
     });
   }, []);
   const { Track } = useTracking(
     {
-      app: "Elearning-Web",
+      app: "Adaptivo-Web",
       user: user && user.attributes.email,
     },
     {

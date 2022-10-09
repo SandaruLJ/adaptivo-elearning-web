@@ -36,7 +36,7 @@ const VideoPlayer = (props) => {
   };
 
   const onEnded = (e) => {
-    props.setOverlay(false);
+    // props.setOverlay(true);
     trackEvent({
       action: "end_video",
       time: moment().format("DD-MM-YYYY hh:mm:ss"),
