@@ -12,6 +12,7 @@ import CustomAuthenticator from "../../components/CustomAuthenticator/CustomAuth
 import { RequireAuth } from "../../components/CustomAuthenticator/RequireAuth";
 import { Authenticator } from "@aws-amplify/ui-react";
 import { Auth } from "aws-amplify";
+import CourseInfo from "../CourseInfo/CourseInfo";
 
 const Main = () => {
   const { Track, trackEvent } = useTracking();
@@ -50,6 +51,7 @@ const Main = () => {
 
           <Route path="/login" element={<CustomAuthenticator initialState="signIn" />} />
           <Route path="/signup" element={<CustomAuthenticator initialState="signUp" />} />
+          <Route path="/course-info/:id" element={<CourseInfo />} />
         </Routes>
       </Track>
     </Authenticator.Provider>
