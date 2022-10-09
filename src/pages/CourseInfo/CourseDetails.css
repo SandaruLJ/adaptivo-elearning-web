@@ -1,0 +1,17 @@
+.details-container {
+  padding-inline-start: 15% !important;
+  padding-right: 0 !important;
+}
+
+.content-card {
+  width: 100% !important;
+  margin-block-end: 1rem;
+  /* border-radius: 1rem !important;
+  border-width: 0.125rem !important; */
+}
+
+.bulletpoint-icon {
+  color: #ff9735;
+  font-size: 1rem !important;
+  min-width: 36px;
+}
