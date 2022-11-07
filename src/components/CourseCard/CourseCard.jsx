@@ -7,7 +7,7 @@ import "./CourseCard.css";
 const CourseCard = (props) => {
   const navigate = useNavigate();
   return (
-    <div className="course-card" onClick={() => navigate("/mycourses")}>
+    <div className="course-card" onClick={() => navigate(props.link)}>
       <div className="course-thumbnail">
         <img src={props.image} />
       </div>
