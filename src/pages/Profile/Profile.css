@@ -1,0 +1,19 @@
+.profile-container {
+  margin-block-start: 128px !important;
+  padding-inline: 5%;
+  opacity: 0.85;
+  /* margin-inline-start: 64px !important; */
+}
+
+body {
+  background-size: cover;
+  background-image: url(/src/assets/background.jpg);
+}
+
+/* .MuiGrid-root {
+  padding-inline: 0 !important;
+} */
+
+.MuiTabPanel-root {
+  padding: 0 !important;
+}

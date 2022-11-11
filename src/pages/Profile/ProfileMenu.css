@@ -1,0 +1,9 @@
+.MuiCardHeader-title {
+  font-weight: 500 !important;
+  font-size: 1.5rem !important;
+}
+
+.profile-menu-container {
+  width: 100%;
+  padding: 10px;
+}
