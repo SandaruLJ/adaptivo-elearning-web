@@ -18,7 +18,7 @@ const TopBar = (props) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const courseName = useSelector((state) => state.course.courseName);
-  const progress = useSelector((state) => state.course.progress);
+  const progress = +useSelector((state) => state.course.progress);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -140,7 +140,7 @@ const TopBar = (props) => {
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
-          <MenuItem>
+          <MenuItem onClick={() => navigate("/profile")}>
             <Avatar /> My Profile
           </MenuItem>
           <Divider />
