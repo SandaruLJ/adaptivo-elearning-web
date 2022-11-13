@@ -59,6 +59,7 @@ export default function CourseInfoUnit(props) {
       body = props.unit.additionalMaterials.url;
     }
 
+    props.previewUnit(body);
     setType(type);
   };
 

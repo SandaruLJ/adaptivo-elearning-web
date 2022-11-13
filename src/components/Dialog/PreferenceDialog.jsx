@@ -58,7 +58,7 @@ const PreferenceDialog = (props) => {
       answers: answers,
     };
     console.log(request);
-    analyzePreferences(request);
+    // analyzePreferences(request);
   };
   const handleChange = (qNo, e) => {
     const temp = answers;

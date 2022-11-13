@@ -31,7 +31,7 @@ export default function CourseInfoSection(props) {
         </AccordionSummary>
         <AccordionDetails>
           {props.units.map((unit, index) => {
-            return <CourseInfoUnit sectionNum={props.sectionNum} unitNum={index + 1} title={unit.name} duration={6} unit={unit} setMain={props.setMain} />;
+            return <CourseInfoUnit sectionNum={props.sectionNum} unitNum={index + 1} title={unit.name} duration={6} unit={unit} setMain={props.setMain} previewUnit={props.previewUnit} />;
           })}
         </AccordionDetails>
       </Accordion>
