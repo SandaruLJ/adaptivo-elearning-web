@@ -18,7 +18,7 @@ import RecommendedCourseSection from "../../components/CourseSection/Recommended
 
 const Home = () => {
   const { trackEvent } = useTracking({ page: "home" });
-  const [displayPreference, setDisplayPreference] = useState(false);
+  const [displayPreference, setDisplayPreference] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(async () => {
@@ -26,12 +26,12 @@ const Home = () => {
       .then(async (data) => {
         const learningStyle = await getLearningStylesByUser(data.attributes.email);
         if (learningStyle.hasOwnProperty("msg")) {
-          setDisplayPreference(true);
+          // setDisplayPreference(true);
         }
         setLoggedIn(true);
       })
       .catch(() => {
-        setDisplayPreference(false);
+        // setDisplayPreference(false);
       });
     trackEvent({
       action: "page_visit_home",
@@ -98,7 +98,7 @@ const Home = () => {
             <SubBanner image={"images/home/rating.png"} title="Expert Instructors" description="Learn from qualified expert instructors" />
           </Grid>
           <Grid item>
-            <SubBanner image={"images/home/key.png"} title="Life time Access" description="All courses will be available for life time. You can learn at your own pace." />
+            <SubBanner image={"images/home/key.png"} title="Life Time Access" description="All courses will be available for life time. You can learn at your own pace." />
           </Grid>
         </Grid>
       </div>

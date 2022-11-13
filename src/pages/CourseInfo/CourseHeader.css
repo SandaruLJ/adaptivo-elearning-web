@@ -1,5 +1,5 @@
 .course-header-container {
-  position: fixed;
+  position: absolute;
   top: 70px;
   left: 0;
   right: 0;
@@ -7,7 +7,7 @@
   padding-inline: 7rem !important;
   background-color: #1c1d1f;
   max-width: none !important;
-  z-index: 99 !important;
+  z-index: 1 !important;
 }
 
 .text {
@@ -44,7 +44,7 @@
 .instructor {
   display: block;
   padding-block-start: 0.7rem !important;
-  padding-inline-start: 0.1rem
+  padding-inline-start: 0.1rem;
 }
 
 .language-wrapper {
@@ -58,15 +58,21 @@
 }
 
 .preview-wrapper {
-  position: fixed;
+  position: absolute;
   right: 7rem;
   background-color: white !important;
   min-width: 35%;
   max-width: 35% !important;
   min-height: 240px;
-  z-index: 99;
+  z-index: 2;
 }
 
 .currency {
   text-transform: capitalize;
+}
+.preview-wrapper .curriculum-heading {
+  margin-top: 30px;
+}
+.preview-wrapper .curriculum-accordion {
+  margin-top: 30px;
 }

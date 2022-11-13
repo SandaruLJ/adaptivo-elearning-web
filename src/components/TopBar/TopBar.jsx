@@ -70,16 +70,18 @@ const TopBar = (props) => {
                   <h3 className="my-course-txt">My Courses</h3>
                 </Link>
               </Grid>
-              <Grid item>
-                <Grid container spacing={1} alignItems="center" className="mr-2">
-                  <Grid item>
-                    <CircularProgressWithIcon value={progress} />
-                  </Grid>
-                  <Grid item>
-                    <h4>Your Progress</h4>
+              {props.displayProgress != false && (
+                <Grid item>
+                  <Grid container spacing={1} alignItems="center" className="mr-2">
+                    <Grid item>
+                      <CircularProgressWithIcon value={progress} />
+                    </Grid>
+                    <Grid item>
+                      <h4>Your Progress</h4>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
+              )}
 
               <Grid item>
                 <IconButton className="iconButton">

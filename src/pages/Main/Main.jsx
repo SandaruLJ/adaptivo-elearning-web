@@ -13,6 +13,7 @@ import { RequireAuth } from "../../components/CustomAuthenticator/RequireAuth";
 import { Authenticator } from "@aws-amplify/ui-react";
 import { Auth } from "aws-amplify";
 import CourseInfo from "../CourseInfo/CourseInfo";
+import ViewLearningStyle from "../ViewLearningStyle/ViewLearningStyle";
 import Profile from "../Profile/Profile";
 
 const Main = () => {
@@ -51,13 +52,6 @@ const Main = () => {
               </RequireAuth>
             }
           />
-
-          {/* <Route exact path="/add/courses" element={<AddCourse />}></Route>
-        <Route exact path="/courses" element={<AllCourse />}></Route>
-        <Route exact path="/qna" element={<AddQuestion />}></Route>
-        <Route exact path="/users" element={<AddUser />}></Route>
-        <Route exact path="/categories/add" element={<AddCategory />}></Route>
-        <Route exact path="/categories" element={<AllCategory />}></Route> */}
 
           <Route path="/login" element={<CustomAuthenticator initialState="signIn" />} />
           <Route path="/signup" element={<CustomAuthenticator initialState="signUp" />} />
