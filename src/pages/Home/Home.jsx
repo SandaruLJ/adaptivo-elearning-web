@@ -14,10 +14,12 @@ import PreferenceDialog from "../../components/Dialog/PreferenceDialog";
 import { getLearningStylesByUser } from "../../service/learningStyles.service";
 import { useState } from "react";
 import { Auth } from "aws-amplify";
+import RecommendedCourseSection from "../../components/CourseSection/RecommendedCourseSection.jsx";
 
 const Home = () => {
   const { trackEvent } = useTracking({ page: "home" });
   const [displayPreference, setDisplayPreference] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(async () => {
     Auth.currentAuthenticatedUser()
@@ -26,6 +28,7 @@ const Home = () => {
         if (learningStyle.hasOwnProperty("msg")) {
           setDisplayPreference(true);
         }
+        setLoggedIn(true);
       })
       .catch(() => {
         setDisplayPreference(false);
@@ -113,6 +116,9 @@ const Home = () => {
       </div>
       <div className="shape-image shape-11">
         <img src="/images/home/shape-11.png" />
+      </div>
+      <div className="popular-courses mt-3" hidden={!loggedIn}>
+        <RecommendedCourseSection title="Recommended Courses" />
       </div>
       <div className="popular-courses mt-3">
         <CourseSection title="Most Popular Courses" />
