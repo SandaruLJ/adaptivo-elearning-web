@@ -3,11 +3,12 @@ import { Avatar, Divider, Grid, IconButton, InputAdornment, ListItemIcon, Menu, 
 import { Auth } from "aws-amplify";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CustomButton from "../Button/CustomButton";
 import "./Header.css";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false);
 
   const [firstname, setFirstname] = useState("");
@@ -36,6 +37,7 @@ const Header = () => {
 
   const handleLogout = () => {
     Auth.signOut().then(() => setAuthenticated(false));
+    navigate("/");
   };
 
   useEffect(() => {
@@ -154,7 +156,7 @@ const Header = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        <MenuItem onClick={() => navigate("/profile")}>
           <Avatar /> My Profile
         </MenuItem>
         <Divider />

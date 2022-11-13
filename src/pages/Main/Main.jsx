@@ -13,6 +13,7 @@ import { RequireAuth } from "../../components/CustomAuthenticator/RequireAuth";
 import { Authenticator } from "@aws-amplify/ui-react";
 import { Auth } from "aws-amplify";
 import CourseInfo from "../CourseInfo/CourseInfo";
+import Profile from "../Profile/Profile";
 
 const Main = () => {
   const { Track, trackEvent } = useTracking();
@@ -38,6 +39,15 @@ const Main = () => {
             element={
               <RequireAuth>
                 <ViewCourse />
+              </RequireAuth>
+            }
+          />
+          <Route
+            exact
+            path="/profile"
+            element={
+              <RequireAuth>
+                <Profile />
               </RequireAuth>
             }
           />
