@@ -29,6 +29,7 @@ const ProfileMenu = ({ tabValue, setTabValue, avatarSrc }) => {
   return (
     <Card
       className="profile-menu-container"
+      variant="outlined"
       sx={{ "--Card-radius": "32px" }}
     >
       <CardHeader
@@ -52,7 +53,6 @@ const ProfileMenu = ({ tabValue, setTabValue, avatarSrc }) => {
         >
           <Tab label="Personal Information" id={0} />
           <Tab label="Change Password" id={1} />
-          <Tab label="Learning Path" id={2} />
         </Tabs>
       </CardContent>
     </Card>

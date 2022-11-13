@@ -33,9 +33,6 @@ const Profile = (props) => {
               <TabPanel value={1}>
                 <ChangePassword />
               </TabPanel>
-              <TabPanel value={2}>
-                Learning Path
-              </TabPanel>
           </TabContext>
         </Grid>
       </Grid>
